@@ -98,6 +98,9 @@ export function initHeroScene(reducedMotion) {
         float vig = smoothstep(0.0, 0.45, uv.x) * smoothstep(1.0, 0.55, uv.x)
                   * smoothstep(0.0, 0.45, uv.y) * smoothstep(1.0, 0.55, uv.y);
         col = mix(col * 0.985, col, vig);
+        // feather to flat paper at the bottom so the hero dissolves
+        // seamlessly into the next section's background
+        col = mix(uPaper, col, smoothstep(0.0, 0.28, uv.y));
 
         gl_FragColor = vec4(col, 1.0);
       }

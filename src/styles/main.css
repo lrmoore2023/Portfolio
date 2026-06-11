@@ -42,7 +42,8 @@
   --pad: clamp(1.25rem, 4vw, 4rem);
   --nav-h: 5rem;
   --fs-label: 0.6875rem;          /* 11px micro labels */
-  --fs-hero: clamp(4.25rem, 14.5vw, 13.5rem);
+  /* vh caps keep the hero stack inside 100svh on wide, short windows */
+  --fs-hero: clamp(4.25rem, min(14.5vw, 21vh), 13.5rem);
   --fs-h2: clamp(2.75rem, 8.5vw, 8rem);
   --fs-cta: clamp(3.5rem, 12.5vw, 11.5rem);
   --track: 0.14em;
@@ -192,7 +193,7 @@ html.js [data-reveal] { opacity: 0; }
 }
 .hero-role {
   text-align: right;
-  font-size: clamp(1.75rem, 4.4vw, 4.25rem);
+  font-size: clamp(1.75rem, min(4.4vw, 6.5vh), 4.25rem);
   font-weight: 700;
   line-height: 0.95;
   letter-spacing: -0.02em;
@@ -547,7 +548,7 @@ section { padding: clamp(5rem, 12vh, 9rem) var(--pad); }
 /* ============================================================
    ANIMATED RULES
    JS swaps static borders for .rule spans that scale with scroll
-   (origin right → they draw in right-to-left). Reduced motion
+   (origin left → they draw in left-to-right). Reduced motion
    keeps the plain CSS borders.
    ============================================================ */
 .has-rule { position: relative; border-top-color: transparent; }
@@ -560,7 +561,7 @@ section { padding: clamp(5rem, 12vh, 9rem) var(--pad); }
   height: 1px;
   background: var(--rule);
   transform: scaleX(0);
-  transform-origin: right center;
+  transform-origin: left center;
   pointer-events: none;
 }
 .rule--bottom { top: auto; bottom: -1px; }

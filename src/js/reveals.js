@@ -1,4 +1,5 @@
 import gsap from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
 // Scroll-triggered reveals:
 //  .line > .line-inner   masked line slide-up (pre-hidden in CSS via html.js)
@@ -94,10 +95,24 @@ export function initRules(reducedMotion) {
         scrollTrigger: { trigger: host, start: 'top 99%', toggleActions: 'play none none reverse' },
       })
     } else {
+      // long range + smoothed scrub so the draw is slow enough to read;
+      // the end is clamped to what the element can reach at max scroll,
+      // otherwise rules near the page bottom would stall half-drawn
       gsap.fromTo(spans, { scaleX: 0 }, {
         scaleX: 1,
         ease: 'none',
-        scrollTrigger: { trigger: host, start: 'top 95%', end: 'top 65%', scrub: true },
+        scrollTrigger: {
+          trigger: host,
+          start: 'top 98%',
+          end: () => {
+            const docTop = host.getBoundingClientRect().top + window.scrollY
+            const reachable = (docTop - ScrollTrigger.maxScroll(window)) / window.innerHeight
+            const pct = Math.min(0.95, Math.max(0.4, reachable + 0.03)) * 100
+            return `top ${pct}%`
+          },
+          scrub: 0.6,
+          invalidateOnRefresh: true,
+        },
       })
     }
   })

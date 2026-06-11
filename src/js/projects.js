@@ -13,6 +13,13 @@ export function initProjects(lenis, reducedMotion) {
   let active = null      // the open .project element
   let home = null        // cover's original parent
   let homeNext = null    // sibling the cover sat before, to restore DOM order
+
+  // stand-in that holds the cover's grid slot while the cover is out of flow
+  // (re-parented into the overlay, or position:absolute during the Flip) —
+  // keeps the page height stable and stops the meta row jumping upward
+  const placeholder = document.createElement('div')
+  placeholder.style.visibility = 'hidden'
+  placeholder.style.width = '100%'
   let lastFocus = null
   let animating = false
 
@@ -45,10 +52,7 @@ export function initProjects(lenis, reducedMotion) {
     const cover = project.querySelector('.cover')
     home = cover.parentElement
     homeNext = cover.nextElementSibling
-
-    // pin the grid item's height so removing the cover doesn't shorten the
-    // page (which would clamp the scroll position and cause a snap on close)
-    home.style.minHeight = `${home.offsetHeight}px`
+    placeholder.style.height = `${cover.offsetHeight}px`
 
     pv.classList.add('is-open')
     pv.setAttribute('aria-hidden', 'false')
@@ -58,6 +62,7 @@ export function initProjects(lenis, reducedMotion) {
 
     const state = Flip.getState(cover)
     media.appendChild(cover)
+    home.insertBefore(placeholder, homeNext)
 
     const dur = reducedMotion ? 0 : 0.9
     Flip.from(state, {
@@ -80,7 +85,7 @@ export function initProjects(lenis, reducedMotion) {
 
     const cover = media.querySelector('.cover')
     const state = Flip.getState(cover)
-    home.insertBefore(cover, homeNext)
+    home.replaceChild(cover, placeholder)
 
     const dur = reducedMotion ? 0 : 0.8
     Flip.from(state, {
@@ -88,9 +93,9 @@ export function initProjects(lenis, reducedMotion) {
       ease: 'power4.inOut',
       absolute: true,
       onComplete: () => {
+        placeholder.remove()
         pv.classList.remove('is-open')
         pv.setAttribute('aria-hidden', 'true')
-        home.style.minHeight = ''
         if (lenis) lenis.start()
         else document.documentElement.style.overflow = ''
         if (lastFocus) lastFocus.focus?.({ preventScroll: true })
@@ -98,6 +103,9 @@ export function initProjects(lenis, reducedMotion) {
         animating = false
       },
     })
+    // Flip just made the cover absolute — fill its flow slot for the
+    // duration of the animation so the meta row doesn't jump upward
+    if (!reducedMotion) home.insertBefore(placeholder, homeNext)
     gsap.to([content, closeBtn], { opacity: 0, duration: Math.max(dur * 0.4, 0.01) })
     gsap.to(backdrop, { opacity: 0, duration: Math.max(dur * 0.8, 0.01), delay: dur * 0.15 })
   }

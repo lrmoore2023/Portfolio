@@ -142,6 +142,68 @@ html.js [data-reveal] { opacity: 0; }
   transition: transform 0.5s var(--ease);
 }
 .nav-links a:hover::after { transform: scaleX(1); transform-origin: left; }
+.nav-ext { font-size: 0.85em; }
+
+/* Home appears only once you've scrolled past the hero */
+.nav-home {
+  opacity: 0;
+  transform: translateY(-8px);
+  pointer-events: none;
+  transition: opacity 0.45s var(--ease), transform 0.45s var(--ease);
+}
+.nav-home.is-visible {
+  opacity: 1;
+  transform: none;
+  pointer-events: auto;
+}
+
+/* Work dropdown — hover-capable pointers only */
+.nav-item { position: relative; display: flex; align-items: center; }
+.nav-drop {
+  display: none;
+  position: absolute;
+  top: 100%;
+  right: -1rem;
+  padding-top: 1.1rem; /* hover bridge between link and panel */
+  opacity: 0;
+  transform: translateY(-6px);
+  visibility: hidden;
+  transition: opacity 0.35s var(--ease), transform 0.35s var(--ease), visibility 0s 0.35s;
+}
+@media (hover: hover) and (pointer: fine) { .nav-drop { display: block; } }
+.nav-item:hover .nav-drop,
+.nav-item:focus-within .nav-drop {
+  opacity: 1;
+  transform: none;
+  visibility: visible;
+  transition-delay: 0s;
+}
+.nav-drop-inner {
+  min-width: 15rem;
+  display: grid;
+  background: color-mix(in srgb, var(--bg) 92%, transparent);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--rule);
+}
+.nav-drop-link {
+  display: flex;
+  align-items: baseline;
+  gap: 0.75em;
+  padding: 0.8rem 1.25rem;
+  background: none;
+  border: none;
+  color: inherit;
+  font-family: inherit;
+  font-size: var(--fs-label);
+  letter-spacing: var(--track);
+  text-transform: uppercase;
+  text-align: left;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+.nav-drop-link + .nav-drop-link { border-top: 1px solid var(--rule); }
+.nav-drop-link sup { opacity: 0.5; }
+.nav-drop-link:hover { background: var(--fg); color: var(--bg); }
 
 /* ============================================================
    HERO

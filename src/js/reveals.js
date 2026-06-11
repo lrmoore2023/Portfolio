@@ -70,50 +70,58 @@ export function initRules(reducedMotion) {
     '.section-head, .project-meta, .capability, .contact-link, .site-footer',
   )
 
+  const make = (host, cls) => {
+    const s = document.createElement('span')
+    s.className = cls
+    s.setAttribute('aria-hidden', 'true')
+    host.appendChild(s)
+    return s
+  }
+
+  // long range + smoothed scrub so the draw is slow enough to read; each
+  // rule is keyed to its own edge of the host (a bottom rule sits one row
+  // lower, so it lags its top rule and the cascade stays consistent). The
+  // end is clamped to what that edge can reach at max scroll, otherwise
+  // rules near the page bottom would stall half-drawn.
+  const draw = (host, span, edge) => {
+    gsap.fromTo(span, { scaleX: 0 }, {
+      scaleX: 1,
+      ease: 'none',
+      scrollTrigger: {
+        trigger: host,
+        start: `${edge} 98%`,
+        end: () => {
+          const rect = host.getBoundingClientRect()
+          const docY = (edge === 'top' ? rect.top : rect.bottom) + window.scrollY
+          const reachable = (docY - ScrollTrigger.maxScroll(window)) / window.innerHeight
+          const pct = Math.min(0.95, Math.max(0.4, reachable + 0.03)) * 100
+          return `${edge} ${pct}%`
+        },
+        scrub: 0.6,
+        invalidateOnRefresh: true,
+      },
+    })
+  }
+
   hosts.forEach((host) => {
     host.classList.add('has-rule')
-    const spans = []
-    const make = (cls) => {
-      const s = document.createElement('span')
-      s.className = cls
-      s.setAttribute('aria-hidden', 'true')
-      host.appendChild(s)
-      spans.push(s)
-    }
-    make('rule')
-    if (host.matches('.capability:last-child, .contact-link:last-child')) {
-      host.classList.add('has-rule-bottom')
-      make('rule rule--bottom')
-    }
+    const top = make(host, 'rule')
 
     if (host.matches('.site-footer')) {
       // the footer never travels far enough up the viewport for a scrub range
-      gsap.fromTo(spans, { scaleX: 0 }, {
+      gsap.fromTo(top, { scaleX: 0 }, {
         scaleX: 1,
         duration: 1.2,
         ease: 'power3.inOut',
         scrollTrigger: { trigger: host, start: 'top 99%', toggleActions: 'play none none reverse' },
       })
-    } else {
-      // long range + smoothed scrub so the draw is slow enough to read;
-      // the end is clamped to what the element can reach at max scroll,
-      // otherwise rules near the page bottom would stall half-drawn
-      gsap.fromTo(spans, { scaleX: 0 }, {
-        scaleX: 1,
-        ease: 'none',
-        scrollTrigger: {
-          trigger: host,
-          start: 'top 98%',
-          end: () => {
-            const docTop = host.getBoundingClientRect().top + window.scrollY
-            const reachable = (docTop - ScrollTrigger.maxScroll(window)) / window.innerHeight
-            const pct = Math.min(0.95, Math.max(0.4, reachable + 0.03)) * 100
-            return `top ${pct}%`
-          },
-          scrub: 0.6,
-          invalidateOnRefresh: true,
-        },
-      })
+      return
+    }
+
+    draw(host, top, 'top')
+    if (host.matches('.capability:last-child, .contact-link:last-child')) {
+      host.classList.add('has-rule-bottom')
+      draw(host, make(host, 'rule rule--bottom'), 'bottom')
     }
   })
 }

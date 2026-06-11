@@ -16,12 +16,12 @@ const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matc
 
 const lenis = initSmoothScroll(reducedMotion)
 initAnchors(lenis)
-initNav()
 initTheme()
 initReveals(reducedMotion)
 initRules(reducedMotion)
 initHeroScene(reducedMotion)
-initProjects(lenis, reducedMotion)
+const projects = initProjects(lenis, reducedMotion)
+initNav(lenis, projects.open)
 initCursor(reducedMotion)
 
 // intro waits for fonts so masked lines don't reveal in a fallback face

@@ -17,9 +17,17 @@
   <header class="site-nav" id="site-nav">
     <a class="nav-brand" href="#hero" data-scroll data-cursor>LM<span class="nav-brand-c">©</span></a>
     <nav class="nav-links" aria-label="Primary">
-      <a href="#work" data-scroll data-cursor><sup>01</sup>Work</a>
+      <a class="nav-home" href="#hero" data-scroll data-cursor><sup>00</sup>Home</a>
+      <div class="nav-item">
+        <a href="#work" data-scroll data-cursor><sup>01</sup>Work</a>
+        <div class="nav-drop">
+          <div class="nav-drop-inner" id="nav-drop-projects"><!-- populated from .project cards by nav.js --></div>
+        </div>
+      </div>
       <a href="#about" data-scroll data-cursor><sup>02</sup>About</a>
       <a href="#contact" data-scroll data-cursor><sup>03</sup>Contact</a>
+      <!-- PLACEHOLDER — replace public/resume.pdf with your real resume -->
+      <a href="/resume.pdf" target="_blank" rel="noopener" data-cursor>Resume<span class="nav-ext" aria-hidden="true">&nbsp;↗</span></a>
     </nav>
   </header>
 

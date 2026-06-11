@@ -125,4 +125,6 @@ export function initProjects(lenis, reducedMotion) {
   window.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') close()
   })
+
+  return { open }
 }

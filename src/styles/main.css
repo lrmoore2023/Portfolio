@@ -780,7 +780,6 @@ section { padding: clamp(5rem, 12vh, 9rem) var(--pad); }
   grid-column: 9 / span 4;
   margin-top: clamp(4rem, 12vh, 9rem);
 }
-.cs-plate--tall .cs-plate-media { max-width: min(100%, 22rem); }
 .cs-plate-meta {
   display: flex;
   align-items: baseline;
@@ -796,7 +795,16 @@ section { padding: clamp(5rem, 12vh, 9rem) var(--pad); }
   letter-spacing: -0.01em;
   text-transform: uppercase;
 }
-.cs-plate-theme { margin-top: 0.5rem; font-size: 0.875rem; color: var(--soft); max-width: 40ch; }
+.cs-plate-sound {
+  margin-left: auto;
+  font-size: var(--fs-label);
+  letter-spacing: var(--track);
+  text-transform: uppercase;
+  color: var(--soft);
+  transition: color 0.3s ease;
+}
+.cs-plate-sound.is-live { color: var(--fg); }
+.cs-plate-sound.is-live::before { content: '● '; font-size: 0.7em; vertical-align: 0.1em; }
 
 /* challenge — numbered pipeline + before/after stack */
 .cs-pipeline { margin-top: 2.5rem; list-style: none; }
@@ -1020,7 +1028,7 @@ section { padding: clamp(5rem, 12vh, 9rem) var(--pad); }
   .pv--case .pv-details { margin-top: 2.5rem; }
   .cs-col-main, .cs-col-side { grid-column: 1 / -1; }
   .cs-plate, .cs-plate:nth-child(even) { grid-column: 1 / -1; margin-top: 0; }
-  .cs-plate--tall .cs-plate-media { max-width: min(100%, 20rem); }
+  .cs-plate:nth-child(even) .cs-plate-media { max-width: min(100%, 24rem); margin-inline: auto; }
   .cs-stats { grid-template-columns: 1fr; row-gap: 2.25rem; }
   .cs-detail { grid-template-columns: 2rem minmax(0, 1fr); }
   .cs-detail-media { grid-column: 2; }

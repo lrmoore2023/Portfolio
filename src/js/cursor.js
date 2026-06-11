@@ -16,19 +16,24 @@ export function initCursor() {
     yTo(e.clientY)
   })
 
-  // grow over links / labelled targets
-  document.querySelectorAll('a, button, [data-cursor], [data-cursor-label]').forEach((el) => {
-    el.addEventListener('pointerenter', () => {
-      const text = el.dataset.cursorLabel
-      if (text) {
-        label.textContent = text
-        cursor.classList.add('has-label')
-      } else {
-        cursor.classList.add('is-hover')
-      }
-    })
-    el.addEventListener('pointerleave', () => {
-      cursor.classList.remove('has-label', 'is-hover')
-    })
+  // grow over links / labelled targets — delegated so content injected
+  // later (e.g. case-study templates) is covered too
+  const targets = 'a, button, [data-cursor], [data-cursor-label]'
+  document.addEventListener('pointerover', (e) => {
+    const el = e.target.closest?.(targets)
+    if (!el) return
+    const text = el.dataset.cursorLabel
+    if (text) {
+      label.textContent = text
+      cursor.classList.add('has-label')
+    } else {
+      cursor.classList.add('is-hover')
+    }
+  })
+  document.addEventListener('pointerout', (e) => {
+    const el = e.target.closest?.(targets)
+    if (!el) return
+    if (el.contains(e.relatedTarget)) return
+    cursor.classList.remove('has-label', 'is-hover')
   })
 }

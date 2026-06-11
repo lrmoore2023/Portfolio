@@ -39,14 +39,37 @@ export function initNav(lenis, openProject) {
     onLeaveBack: () => home.classList.remove('is-visible'),
   })
 
-  // Work dropdown, generated from the live project cards so it stays in sync
+  // Work dropdown, generated from the live project cards so it stays in sync.
+  // The preview panel shows a clone of the hovered project's cover, so it
+  // picks up real images automatically once placeholders are replaced.
   const drop = document.getElementById('nav-drop-projects')
-  document.querySelectorAll('.project').forEach((project, i) => {
+  const preview = document.querySelector('.nav-drop-preview')
+  const navItem = drop.closest('.nav-item')
+  const allProjects = document.querySelectorAll('.project')
+
+  const showPreview = (project) => {
+    if (preview.dataset.current === project.dataset.title) return
+    preview.dataset.current = project.dataset.title
+    const clone = project.querySelector('.cover').cloneNode(true)
+    clone.removeAttribute('style') // strip reveal-animation inline styles
+    preview.replaceChildren(clone)
+    gsap.fromTo(clone,
+      { opacity: 0, scale: 1.08 },
+      { opacity: 1, scale: 1, duration: 0.5, ease: 'power2.out' },
+    )
+  }
+
+  // opening the dropdown always starts on the first project
+  navItem.addEventListener('pointerenter', () => showPreview(allProjects[0]))
+
+  allProjects.forEach((project, i) => {
     const btn = document.createElement('button')
     btn.type = 'button'
     btn.className = 'nav-drop-link'
     btn.setAttribute('data-cursor', '')
     btn.innerHTML = `<sup>${String(i + 1).padStart(2, '0')}</sup>${project.dataset.title}`
+    btn.addEventListener('pointerenter', () => showPreview(project))
+    btn.addEventListener('focus', () => showPreview(project))
     btn.addEventListener('click', () => {
       btn.blur() // collapse the dropdown
       if (lenis) {

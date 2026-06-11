@@ -17,7 +17,8 @@ Deploy by pointing any static host (Netlify, Vercel, GitHub Pages) at `dist/` �
 
 - **Projects** — in `index.html`, each `<li class="project">` carries `data-title/category/year/role/stack/description` (used by the fullscreen overlay) plus visible meta text. Swap each `.cover`'s placeholder div content for a real `<img>`.
 - **About** — bio paragraphs and the portrait block are marked with `PLACEHOLDER` comments.
-- **Contact** — set your real Gmail address and LinkedIn URL on the two `.contact-link` anchors.
+- **Contact** — wired to lrmoore2023@gmail.com and the real LinkedIn profile.
+- **Resume** — replace `public/resume.pdf` (currently a placeholder) with the real document.
 
 ## Where things live
 

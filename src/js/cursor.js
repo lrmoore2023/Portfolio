@@ -1,7 +1,7 @@
 import gsap from 'gsap'
 
-// Custom cursor dot (fine pointers only) + magnetic pull on small links
-export function initCursor(reducedMotion) {
+// Custom cursor dot (fine pointers only)
+export function initCursor() {
   if (!window.matchMedia('(pointer: fine)').matches) return
 
   const cursor = document.querySelector('.cursor')
@@ -30,19 +30,5 @@ export function initCursor(reducedMotion) {
     el.addEventListener('pointerleave', () => {
       cursor.classList.remove('has-label', 'is-hover')
     })
-  })
-
-  if (reducedMotion) return
-
-  // magnetic pull on nav + footer links
-  document.querySelectorAll('.nav-links a, .site-footer a, .nav-brand').forEach((el) => {
-    const mx = gsap.quickTo(el, 'x', { duration: 0.4, ease: 'power3.out' })
-    const my = gsap.quickTo(el, 'y', { duration: 0.4, ease: 'power3.out' })
-    el.addEventListener('pointermove', (e) => {
-      const r = el.getBoundingClientRect()
-      mx((e.clientX - (r.left + r.width / 2)) * 0.3)
-      my((e.clientY - (r.top + r.height / 2)) * 0.3)
-    })
-    el.addEventListener('pointerleave', () => { mx(0); my(0) })
   })
 }

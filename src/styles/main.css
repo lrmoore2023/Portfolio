@@ -131,29 +131,18 @@ html.js [data-reveal] { opacity: 0; }
   padding-block: 0.5rem;
 }
 .nav-links a sup { margin-right: 0.4em; opacity: 0.5; }
-.nav-ext { font-size: 0.85em; }
-
-/* rolling-text hover: duplicate label slides up from below */
-.roll {
-  position: relative;
-  display: inline-block;
-  overflow: hidden;
-  vertical-align: bottom;
-}
-.roll > span {
-  display: block;
-  transition: transform 0.45s var(--ease);
-}
-.roll > span:last-child {
+.nav-links a::after {
+  content: '';
   position: absolute;
-  top: 100%;
-  left: 0;
+  left: 0; bottom: 0.2rem;
+  width: 100%; height: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.5s var(--ease);
 }
-a:hover .roll > span,
-button:hover .roll > span,
-.contact-link:hover .roll > span {
-  transform: translateY(-100%);
-}
+.nav-links a:hover::after { transform: scaleX(1); transform-origin: left; }
+.nav-ext { font-size: 0.85em; }
 
 /* Home appears only once you've scrolled past the hero */
 .nav-home {
@@ -274,7 +263,6 @@ button:hover .roll > span,
   letter-spacing: -0.035em;
   text-transform: uppercase;
 }
-.hero-name-c { font-size: 0.16em; font-weight: 400; vertical-align: 1.5em; letter-spacing: 0; }
 .hero-tagline {
   margin-top: clamp(1.5rem, 4vh, 3rem);
   font-size: clamp(1rem, 1.6vw, 1.5rem);
@@ -530,7 +518,7 @@ section { padding: clamp(5rem, 12vh, 9rem) var(--pad); }
 .contact-link > * { position: relative; z-index: 1; transition: color 0.45s ease; }
 .contact-link:hover > * { color: var(--bg); }
 .contact-link-label {
-  width: 7ch;
+  width: 9ch;
   font-size: var(--fs-label);
   letter-spacing: var(--track);
   color: var(--soft);
@@ -801,6 +789,5 @@ section { padding: clamp(5rem, 12vh, 9rem) var(--pad); }
   html.js .line-inner { transform: none; }
   html.js [data-reveal] { opacity: 1; }
   .hero-scroll, .grain { animation: none; }
-  .roll > span { transition: none; }
   body { transition: none; }
 }

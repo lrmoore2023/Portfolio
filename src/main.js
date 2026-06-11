@@ -25,7 +25,7 @@ initWayfinder(reducedMotion)
 initHeroScene(reducedMotion)
 const projects = initProjects(lenis, reducedMotion)
 initNav(lenis, projects.open)
-initCursor(reducedMotion)
+initCursor()
 
 // intro waits for fonts so masked lines don't reveal in a fallback face
 document.fonts.ready.then(() => {

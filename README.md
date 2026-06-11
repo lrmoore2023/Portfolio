@@ -32,6 +32,6 @@ Deploy by pointing any static host (Netlify, Vercel, GitHub Pages) at `dist/` â€
 | `src/js/wayfinder.js` | fixed section indicator + scroll-progress line |
 | `src/js/projects.js` | expand-in-place project overlay (GSAP Flip) |
 | `src/js/nav.js` | hide-on-scroll-down navbar |
-| `src/js/cursor.js` | custom cursor + magnetic links (fine pointers only) |
+| `src/js/cursor.js` | custom cursor dot (fine pointers only) |
 
 All motion respects `prefers-reduced-motion`.

@@ -362,6 +362,13 @@ section { padding: clamp(5rem, 12vh, 9rem) var(--pad); }
   transition: transform 1.1s var(--ease);
 }
 .cover-art img { width: 100%; height: 100%; object-fit: cover; }
+.cover-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
 .project:hover .cover-art { transform: scale(1.055); }
 
 /* placeholder cover treatments — replaced by real images later */
@@ -640,6 +647,239 @@ section { padding: clamp(5rem, 12vh, 9rem) var(--pad); }
 .pv-close:hover { opacity: 0.55; }
 
 /* ============================================================
+   CASE STUDY (.pv--case) — long-form overlay document
+   Authored as <template> per project, cloned into .pv-case on
+   open. The panel becomes a block-flow document: the Flip'd
+   cover lands centered as a 16:9 plate, then the case scrolls.
+   ============================================================ */
+.pv-case { display: none; }
+.pv--case .pv-case { display: block; }
+
+.pv--case .pv-panel { display: block; }
+.pv--case .pv-media {
+  position: relative;
+  height: auto;
+  padding: calc(var(--nav-h) + 1.5rem) var(--pad) 0;
+  display: grid;
+  justify-items: center;
+}
+.pv--case .pv-media .cover {
+  height: auto;
+  aspect-ratio: 16 / 9;
+  width: min(100%, calc(min(76svh, 46rem) * 1.7778));
+}
+.pv--case .pv-content {
+  min-height: 0;
+  padding: clamp(2.5rem, 7vh, 4.5rem) var(--pad) clamp(1rem, 3vh, 2rem);
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  column-gap: clamp(1rem, 2.5vw, 2.5rem);
+}
+.pv--case .pv-title { grid-column: 1 / -1; font-size: clamp(2.75rem, 7.5vw, 7.5rem); }
+.pv--case .pv-row { grid-column: 1 / -1; }
+.pv--case .pv-desc { grid-column: 1 / span 7; }
+.pv--case .pv-details {
+  grid-column: 9 / span 4;
+  margin-top: clamp(2rem, 5vh, 3.5rem);
+  padding-top: 0;
+}
+
+/* media inside the case never inherits the global 100%-height img rule */
+.pv-case img, .pv-case video { width: 100%; height: auto; display: block; }
+.pv-case figcaption {
+  margin-top: 0.75rem;
+  font-size: 0.625rem;
+  letter-spacing: var(--track);
+  text-transform: uppercase;
+  color: var(--soft);
+}
+
+.cs-section { padding: clamp(4rem, 10vh, 7rem) var(--pad) 0; }
+.cs-section:last-of-type { padding-bottom: clamp(4rem, 10vh, 7rem); }
+.cs-head {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  border-top: 1px solid var(--rule);
+  padding-top: 1.1rem;
+  margin-bottom: clamp(2.5rem, 6vh, 4.5rem);
+}
+.cs-kicker {
+  font-size: var(--fs-label);
+  letter-spacing: var(--track);
+  text-transform: uppercase;
+  color: var(--soft);
+}
+.cs-h {
+  font-size: clamp(2rem, 4.6vw, 4.25rem);
+  font-weight: 500;
+  line-height: 0.95;
+  letter-spacing: -0.025em;
+  text-transform: uppercase;
+  max-width: 18ch;
+}
+.cs-grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  column-gap: clamp(1rem, 2.5vw, 2.5rem);
+  row-gap: 2.5rem;
+  align-items: start;
+}
+.cs-col-main { grid-column: 1 / span 7; }
+.cs-col-side { grid-column: 9 / span 4; }
+.cs-lede {
+  font-size: clamp(1.5rem, 2.6vw, 2.375rem);
+  font-weight: 500;
+  line-height: 1.18;
+  letter-spacing: -0.015em;
+  text-wrap: balance;
+}
+.cs-body {
+  margin-top: 1.5rem;
+  font-size: clamp(1rem, 1.25vw, 1.125rem);
+  line-height: 1.55;
+  max-width: 52ch;
+  color: var(--soft);
+}
+.cs-col-main > .cs-body:first-child { margin-top: 0; }
+
+/* stats — huge thin numerals over bordered columns */
+.cs-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  column-gap: clamp(1rem, 2.5vw, 2.5rem);
+}
+.cs-stat { border-top: 1px solid var(--rule); padding-top: 1.1rem; }
+.cs-stat-n {
+  display: block;
+  font-size: clamp(4rem, 10vw, 10rem);
+  font-weight: 200;
+  line-height: 0.9;
+  letter-spacing: -0.03em;
+}
+.cs-stat-n sup { font-size: 0.3em; font-weight: 400; letter-spacing: 0; }
+.cs-stat-l {
+  display: block;
+  margin-top: 1rem;
+  font-size: var(--fs-label);
+  letter-spacing: var(--track);
+  text-transform: uppercase;
+  color: var(--soft);
+}
+.cs-board { margin-top: clamp(3rem, 7vh, 5rem); }
+
+/* postcard plates — alternating editorial grid, like the work index */
+.cs-plates {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  column-gap: clamp(1rem, 2.5vw, 2.5rem);
+  row-gap: clamp(4rem, 9vh, 7rem);
+}
+.cs-plate { grid-column: 1 / span 7; }
+.cs-plate:nth-child(even) {
+  grid-column: 9 / span 4;
+  margin-top: clamp(4rem, 12vh, 9rem);
+}
+.cs-plate--tall .cs-plate-media { max-width: min(100%, 22rem); }
+.cs-plate-meta {
+  display: flex;
+  align-items: baseline;
+  gap: 1.25rem;
+  border-top: 1px solid var(--rule);
+  margin-top: 1rem;
+  padding-top: 0.875rem;
+}
+.cs-plate-num { font-size: var(--fs-label); letter-spacing: var(--track); color: var(--soft); }
+.cs-plate-title {
+  font-size: clamp(1.125rem, 1.8vw, 1.625rem);
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+}
+.cs-plate-theme { margin-top: 0.5rem; font-size: 0.875rem; color: var(--soft); max-width: 40ch; }
+
+/* challenge — numbered pipeline + before/after stack */
+.cs-pipeline { margin-top: 2.5rem; list-style: none; }
+.cs-pipeline li {
+  display: flex;
+  align-items: baseline;
+  gap: 1.25rem;
+  border-top: 1px solid var(--rule);
+  padding-block: 0.9rem;
+  font-size: 0.9375rem;
+}
+.cs-pipeline li:last-child { border-bottom: 1px solid var(--rule); }
+.cs-pipeline li span { font-size: var(--fs-label); letter-spacing: var(--track); color: var(--soft); }
+.cs-compare { display: grid; gap: 2rem; }
+
+/* pivot — manifesto + full-bleed plate */
+.cs-statement {
+  font-size: clamp(2.25rem, 5.6vw, 5.5rem);
+  font-weight: 500;
+  line-height: 1.02;
+  letter-spacing: -0.03em;
+  text-transform: uppercase;
+  max-width: 17ch;
+}
+.cs-statement em { font-style: italic; font-weight: 600; }
+.cs-full { margin-top: clamp(3rem, 7vh, 5rem); margin-inline: calc(-1 * var(--pad)); }
+.cs-full figcaption { padding-inline: var(--pad); }
+
+/* craft — capability-style rows with media */
+.cs-detail {
+  display: grid;
+  grid-template-columns: 3rem minmax(0, 5fr) minmax(0, 6fr);
+  gap: 2rem clamp(1.5rem, 3vw, 2.5rem);
+  border-top: 1px solid var(--rule);
+  padding-block: clamp(2rem, 5vh, 3rem);
+}
+.cs-detail:last-child { border-bottom: 1px solid var(--rule); }
+.cs-detail-i { font-size: var(--fs-label); letter-spacing: var(--track); color: var(--soft); }
+.cs-detail-copy h5 {
+  font-size: clamp(1.375rem, 2.6vw, 2.25rem);
+  font-weight: 500;
+  letter-spacing: -0.015em;
+  text-transform: uppercase;
+}
+.cs-detail-copy p {
+  margin-top: 1rem;
+  font-size: clamp(0.9375rem, 1.15vw, 1.0625rem);
+  line-height: 1.55;
+  max-width: 44ch;
+  color: var(--soft);
+}
+.cs-detail-media {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr));
+  gap: 1.5rem;
+  align-items: start;
+}
+.cs-detail-media .is-tall { max-width: 17rem; }
+
+/* end credit */
+.cs-end {
+  margin: clamp(4rem, 10vh, 7rem) var(--pad) 0;
+  border-top: 1px solid var(--rule);
+  padding: 1.5rem 0 7rem;
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+  font-size: 0.625rem;
+  letter-spacing: var(--track);
+  text-transform: uppercase;
+  color: var(--soft);
+}
+
+/* reveals — same 36px fade-up language as the page, observer-driven */
+.pv--case .cs-reveal {
+  opacity: 0;
+  transform: translateY(36px);
+  transition: opacity 0.9s var(--ease), transform 0.9s var(--ease);
+}
+.pv--case .cs-reveal.is-inview { opacity: 1; transform: none; }
+
+/* ============================================================
    ANIMATED RULES
    JS swaps static borders for .rule spans that scale with scroll
    (origin left → they draw in left-to-right). Reduced motion
@@ -773,6 +1013,18 @@ section { padding: clamp(5rem, 12vh, 9rem) var(--pad); }
   .pv-content { min-height: 0; padding: 2.5rem var(--pad) 4rem; }
   .pv-details { margin-top: 3rem; }
 
+  .pv--case .pv-media { height: auto; padding-top: calc(var(--nav-h) + 1rem); }
+  .pv--case .pv-content { padding-bottom: 0; }
+  .pv--case .pv-desc,
+  .pv--case .pv-details { grid-column: 1 / -1; }
+  .pv--case .pv-details { margin-top: 2.5rem; }
+  .cs-col-main, .cs-col-side { grid-column: 1 / -1; }
+  .cs-plate, .cs-plate:nth-child(even) { grid-column: 1 / -1; margin-top: 0; }
+  .cs-plate--tall .cs-plate-media { max-width: min(100%, 20rem); }
+  .cs-stats { grid-template-columns: 1fr; row-gap: 2.25rem; }
+  .cs-detail { grid-template-columns: 2rem minmax(0, 1fr); }
+  .cs-detail-media { grid-column: 2; }
+
   .site-footer { font-size: 0.5625rem; }
 }
 
@@ -788,6 +1040,7 @@ section { padding: clamp(5rem, 12vh, 9rem) var(--pad); }
 @media (prefers-reduced-motion: reduce) {
   html.js .line-inner { transform: none; }
   html.js [data-reveal] { opacity: 1; }
+  .pv--case .cs-reveal { opacity: 1; transform: none; transition: none; }
   .hero-scroll, .grain { animation: none; }
   body { transition: none; }
 }

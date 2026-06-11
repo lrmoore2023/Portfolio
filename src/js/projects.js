@@ -1,14 +1,21 @@
 import gsap from 'gsap'
 import { Flip } from 'gsap/Flip'
+import { initCaseStudy } from './case-study.js'
 
 // Expand-in-place project overlay: the clicked cover is re-parented into the
 // overlay and FLIP-animated fullscreen; closing reverses it back into the grid.
+// Projects with a data-case attribute additionally get "case mode": their
+// <template> content is cloned into .pv-case and the panel becomes a
+// scrollable long-form document.
 export function initProjects(lenis, reducedMotion) {
   const pv = document.querySelector('.pv')
   const backdrop = pv.querySelector('.pv-backdrop')
+  const panel = pv.querySelector('.pv-panel')
   const media = pv.querySelector('.pv-media')
   const content = pv.querySelector('.pv-content')
   const closeBtn = pv.querySelector('.pv-close')
+  const caseMount = pv.querySelector('.pv-case')
+  let caseCtl = null
 
   let active = null      // the open .project element
   let home = null        // cover's original parent
@@ -56,9 +63,17 @@ export function initProjects(lenis, reducedMotion) {
 
     pv.classList.add('is-open')
     pv.setAttribute('aria-hidden', 'false')
-    pv.scrollTop = 0
+    panel.scrollTop = 0
     if (lenis) lenis.stop()
     else document.documentElement.style.overflow = 'hidden'
+
+    // case mode must be in place before Flip measures the destination layout
+    const tpl = project.dataset.case && document.getElementById(project.dataset.case)
+    if (tpl) {
+      pv.classList.add('pv--case')
+      caseMount.appendChild(tpl.content.cloneNode(true))
+      caseCtl = initCaseStudy(panel, reducedMotion)
+    }
 
     const state = Flip.getState(cover)
     media.appendChild(cover)
@@ -84,6 +99,37 @@ export function initProjects(lenis, reducedMotion) {
     animating = true
 
     const cover = media.querySelector('.cover')
+
+    const finish = () => {
+      placeholder.remove()
+      pv.classList.remove('is-open')
+      pv.setAttribute('aria-hidden', 'true')
+      if (caseCtl) { caseCtl.destroy(); caseCtl = null }
+      pv.classList.remove('pv--case')
+      caseMount.replaceChildren()
+      gsap.set(pv, { clearProps: 'opacity' })
+      if (lenis) lenis.start()
+      else document.documentElement.style.overflow = ''
+      if (lastFocus) lastFocus.focus?.({ preventScroll: true })
+      active = null
+      animating = false
+    }
+
+    // deep in a case study the hero cover is far offscreen — Flip-flying it
+    // back would streak across the document, so fade the overlay out instead
+    if (panel.scrollTop > window.innerHeight * 0.5 && !reducedMotion) {
+      gsap.to(pv, {
+        opacity: 0,
+        duration: 0.5,
+        ease: 'power2.inOut',
+        onComplete: () => {
+          home.replaceChild(cover, placeholder)
+          finish()
+        },
+      })
+      return
+    }
+
     const state = Flip.getState(cover)
     home.replaceChild(cover, placeholder)
 
@@ -92,16 +138,7 @@ export function initProjects(lenis, reducedMotion) {
       duration: dur,
       ease: 'power4.inOut',
       absolute: true,
-      onComplete: () => {
-        placeholder.remove()
-        pv.classList.remove('is-open')
-        pv.setAttribute('aria-hidden', 'true')
-        if (lenis) lenis.start()
-        else document.documentElement.style.overflow = ''
-        if (lastFocus) lastFocus.focus?.({ preventScroll: true })
-        active = null
-        animating = false
-      },
+      onComplete: finish,
     })
     // Flip just made the cover absolute — fill its flow slot for the
     // duration of the animation so the meta row doesn't jump upward

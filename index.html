@@ -104,17 +104,18 @@
         </li>
 
         <li class="project" data-cursor-label="OPEN"
-            data-title="Project Title Two"
-            data-category="Web Experience"
-            data-year="2025"
-            data-role="Design, Development"
-            data-stack="WebGL — GLSL — JavaScript"
-            data-description="Placeholder description. A short paragraph about the concept behind the project, the problem it explores, and the outcome. Two to four sentences that give the work context without over-explaining it.">
-          <div class="cover c2"><div class="cover-media"><div class="cover-art"></div></div><span class="cover-num" aria-hidden="true">02</span><span class="cover-tag" aria-hidden="true">IMAGE — PLACEHOLDER</span></div>
+            data-title="Boys of Dungeon Lane"
+            data-category="AI Film — Music"
+            data-year="2026"
+            data-role="AI Direction, Generation Pipeline, Finishing"
+            data-stack="LTX — Wan — Qwen — Nano Banana — After Effects"
+            data-case="case-mccartney"
+            data-description="Five animated postcards for Paul McCartney's album Boys of Dungeon Lane — vintage photographs from his pre-Beatles boyhood brought back to life as moving scenes. Made at Stability AI: three months, thousands of generations, one start-over.">
+          <div class="cover c2"><div class="cover-media"><div class="cover-art"><video class="cover-video" muted loop playsinline preload="none" poster="/projects/mccartney/cover-poster.webp" data-src="/projects/mccartney/cover.mp4" aria-hidden="true"></video></div></div><span class="cover-num" aria-hidden="true">02</span></div>
           <div class="project-meta">
-            <h3 class="project-title">Project Title Two</h3>
-            <span class="project-cat">Web Experience</span>
-            <span class="project-year">2025</span>
+            <h3 class="project-title">Boys of Dungeon Lane</h3>
+            <span class="project-cat">AI Film — Music</span>
+            <span class="project-year">2026</span>
           </div>
         </li>
 
@@ -241,8 +242,218 @@
           <div><dt>STACK</dt><dd class="pv-stack"></dd></div>
         </dl>
       </div>
+      <div class="pv-case"></div>
     </div>
   </div>
+
+  <!-- ============ CASE STUDY — BOYS OF DUNGEON LANE ============
+       Inert until cloned into .pv-case by projects.js (data-case).
+       Reveal targets use .cs-reveal (observer-driven inside the overlay) —
+       never .line / [data-reveal], which only the page scroller can un-hide. -->
+  <template id="case-mccartney">
+
+    <section class="cs-section">
+      <div class="cs-head cs-reveal">
+        <span class="cs-kicker">01 — The Brief</span>
+      </div>
+      <div class="cs-grid">
+        <div class="cs-col-main cs-reveal">
+          <p class="cs-lede">Paul looking back at the times before the Beatles were the Beatles — hitchhiking with George in the summers of &rsquo;57 and &rsquo;58, the road near his home in Speke that ran down to the ocean.</p>
+          <p class="cs-body">The album takes its name from Dungeon Lane, and a series of photographs from those years tells its story. The brief: five 15-second films, one per song — each one a postcard, a nod to the letters Paul sent home from his adventures. Vintage photographs brought to life as moving scenes.</p>
+        </div>
+        <figure class="cs-col-side cs-reveal">
+          <img src="/projects/mccartney/album.webp" alt="Boys of Dungeon Lane — record mockup" loading="lazy" decoding="async" />
+          <figcaption>THE ALBUM — BOYS OF DUNGEON LANE</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="cs-section">
+      <div class="cs-stats">
+        <div class="cs-stat cs-reveal"><span class="cs-stat-n">03</span><span class="cs-stat-l">Months</span></div>
+        <div class="cs-stat cs-reveal"><span class="cs-stat-n">1000<sup>S</sup></span><span class="cs-stat-l">Of generations</span></div>
+        <div class="cs-stat cs-reveal"><span class="cs-stat-n">01</span><span class="cs-stat-l">Start-over</span></div>
+      </div>
+      <figure class="cs-board cs-reveal">
+        <video class="cs-video" muted loop playsinline preload="none" poster="/projects/mccartney/stats-board-poster.webp" data-src="/projects/mccartney/stats-board.mp4"></video>
+        <figcaption>THE BOARD — EVERY TAKE OF EVERY POSTCARD</figcaption>
+      </figure>
+    </section>
+
+    <section class="cs-section">
+      <div class="cs-head cs-reveal">
+        <span class="cs-kicker">02 — The Postcards</span>
+        <h4 class="cs-h">Five songs, five postcards</h4>
+      </div>
+      <ul class="cs-plates">
+        <li class="cs-plate cs-reveal">
+          <figure class="cs-plate-media">
+            <video class="cs-video" muted loop playsinline preload="none" poster="/projects/mccartney/postcard-01-lost-horizon-poster.webp" data-src="/projects/mccartney/postcard-01-lost-horizon.mp4"></video>
+          </figure>
+          <div class="cs-plate-meta">
+            <span class="cs-plate-num">PC.01</span>
+            <h5 class="cs-plate-title">Lost Horizon</h5>
+          </div>
+          <p class="cs-plate-theme">Going back to a specific time and place.</p>
+        </li>
+        <li class="cs-plate cs-reveal">
+          <figure class="cs-plate-media">
+            <video class="cs-video" muted loop playsinline preload="none" poster="/projects/mccartney/postcard-02-down-south-poster.webp" data-src="/projects/mccartney/postcard-02-down-south.mp4"></video>
+          </figure>
+          <div class="cs-plate-meta">
+            <span class="cs-plate-num">PC.02</span>
+            <h5 class="cs-plate-title">Down South</h5>
+          </div>
+          <p class="cs-plate-theme">Brotherhood and bonding between close friends.</p>
+        </li>
+        <li class="cs-plate cs-reveal">
+          <figure class="cs-plate-media">
+            <video class="cs-video" muted loop playsinline preload="none" poster="/projects/mccartney/postcard-03-we-two-poster.webp" data-src="/projects/mccartney/postcard-03-we-two.mp4"></video>
+          </figure>
+          <div class="cs-plate-meta">
+            <span class="cs-plate-num">PC.03</span>
+            <h5 class="cs-plate-title">We Two</h5>
+          </div>
+          <p class="cs-plate-theme">Choosing love in all relationships worth having.</p>
+        </li>
+        <li class="cs-plate cs-reveal">
+          <figure class="cs-plate-media">
+            <video class="cs-video" muted loop playsinline preload="none" poster="/projects/mccartney/postcard-04-home-to-us-poster.webp" data-src="/projects/mccartney/postcard-04-home-to-us.mp4"></video>
+          </figure>
+          <div class="cs-plate-meta">
+            <span class="cs-plate-num">PC.04</span>
+            <h5 class="cs-plate-title">Home to Us</h5>
+          </div>
+          <p class="cs-plate-theme">A Paul-and-Ringo duet about growing up with little in Liverpool.</p>
+        </li>
+        <li class="cs-plate cs-plate--tall cs-reveal">
+          <figure class="cs-plate-media">
+            <video class="cs-video" muted loop playsinline preload="none" poster="/projects/mccartney/postcard-05-salesman-saint-poster.webp" data-src="/projects/mccartney/postcard-05-salesman-saint.mp4"></video>
+          </figure>
+          <div class="cs-plate-meta">
+            <span class="cs-plate-num">PC.05</span>
+            <h5 class="cs-plate-title">Salesman Saint</h5>
+          </div>
+          <p class="cs-plate-theme">A tribute to Paul&rsquo;s parents.</p>
+        </li>
+      </ul>
+    </section>
+
+    <section class="cs-section">
+      <div class="cs-head cs-reveal">
+        <span class="cs-kicker">03 — The Challenge</span>
+        <h4 class="cs-h">The label couldn&rsquo;t see Paul</h4>
+      </div>
+      <div class="cs-grid">
+        <div class="cs-col-main cs-reveal">
+          <p class="cs-body">The hardest problem wasn&rsquo;t motion — it was likeness. The dataset of Paul as a teenager is small and wildly varied, and even with a dedicated face LoRA, Capitol Records didn&rsquo;t see Paul in the outputs. Three months into a photoreal pipeline, we made the call: start over.</p>
+          <ol class="cs-pipeline">
+            <li><span>01</span>Base image — the vintage photograph</li>
+            <li><span>02</span>Recolor + outpaint — Qwen, Nano Banana</li>
+            <li><span>03</span>Video generation — LTX, Wan</li>
+            <li><span>04</span>Face LoRA pass</li>
+            <li><span>05</span>Outputs + edit</li>
+          </ol>
+        </div>
+        <div class="cs-col-side cs-compare cs-reveal">
+          <figure>
+            <img src="/projects/mccartney/challenge-before.webp" alt="Original photo-booth portrait of a teenage Paul McCartney, worn black and white print" loading="lazy" decoding="async" />
+            <figcaption>THE SOURCE — PHOTO BOOTH PRINT</figcaption>
+          </figure>
+          <figure>
+            <video class="cs-video" muted loop playsinline preload="none" poster="/projects/mccartney/challenge-after-poster.webp" data-src="/projects/mccartney/challenge-after.mp4"></video>
+            <figcaption>RESTORED — RECOLORED, IN MOTION</figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <section class="cs-section">
+      <div class="cs-head cs-reveal">
+        <span class="cs-kicker">04 — The Pivot</span>
+      </div>
+      <p class="cs-statement cs-reveal">Stop chasing photoreal. <em>Embrace the vintage</em> — a Super&nbsp;8 film direction.</p>
+      <figure class="cs-full cs-reveal">
+        <video class="cs-video" muted loop playsinline preload="none" poster="/projects/mccartney/pivot-super8-poster.webp" data-src="/projects/mccartney/pivot-super8.mp4"></video>
+        <figcaption>FILM TEXTURE — COLOR — DETAIL — MOTION</figcaption>
+      </figure>
+    </section>
+
+    <section class="cs-section">
+      <div class="cs-head cs-reveal">
+        <span class="cs-kicker">05 — The Craft</span>
+        <h4 class="cs-h">Recolored, not upscaled</h4>
+      </div>
+      <ul class="cs-details">
+        <li class="cs-detail cs-reveal">
+          <span class="cs-detail-i">A</span>
+          <div class="cs-detail-copy">
+            <h5>Historical recoloring</h5>
+            <p>The photographs were recolored and outpainted without upscaling, preserving the fuzzy, grainy feel of the originals. Backgrounds were researched against the historical record — brick color, mid-century gutters — so nothing broke when the camera panned past a fan base that knows these streets by heart.</p>
+          </div>
+          <div class="cs-detail-media">
+            <figure>
+              <img src="/projects/mccartney/craft-recolor.webp" alt="Recolored scene of a teenage Paul climbing a drainpipe against a Liverpool brick wall" loading="lazy" decoding="async" />
+              <figcaption>RECOLORED — LIVERPOOL BRICK</figcaption>
+            </figure>
+            <figure>
+              <img src="/projects/mccartney/craft-research.webp" alt="Aerial research view of Paul McCartney's childhood home with an annotation" loading="lazy" decoding="async" />
+              <figcaption>RESEARCH — 20 FORTHLIN ROAD</figcaption>
+            </figure>
+          </div>
+        </li>
+        <li class="cs-detail cs-reveal">
+          <span class="cs-detail-i">B</span>
+          <div class="cs-detail-copy">
+            <h5>Anchored generation</h5>
+            <p>Community LoRAs steadied face consistency, and each clip was anchored by pinning its start and end frames to the same plate — the motion breathes, the photograph holds.</p>
+          </div>
+          <div class="cs-detail-media">
+            <figure>
+              <img src="/projects/mccartney/craft-variants.webp" alt="Grid of generated takes of the same scene" loading="lazy" decoding="async" />
+              <figcaption>TAKES — ONE SCENE, MANY GENERATIONS</figcaption>
+            </figure>
+          </div>
+        </li>
+        <li class="cs-detail cs-reveal">
+          <span class="cs-detail-i">C</span>
+          <div class="cs-detail-copy">
+            <h5>9×16, regenerated</h5>
+            <p>Every 16×9 master was rerun as an outpainted 9×16 variation. Cropping the wide frame would have left the tall one empty — so the source was outpainted instead, and the full set regenerated.</p>
+          </div>
+          <div class="cs-detail-media">
+            <figure class="is-tall">
+              <video class="cs-video" muted loop playsinline preload="none" poster="/projects/mccartney/craft-outpaint-poster.webp" data-src="/projects/mccartney/craft-outpaint.mp4"></video>
+              <figcaption>OUTPAINT — 9×16 FROM THE 16×9 PLATE</figcaption>
+            </figure>
+          </div>
+        </li>
+      </ul>
+    </section>
+
+    <section class="cs-section">
+      <div class="cs-head cs-reveal">
+        <span class="cs-kicker">06 — Finishing</span>
+        <h4 class="cs-h">Every film edited twice</h4>
+      </div>
+      <div class="cs-grid">
+        <div class="cs-col-main cs-reveal">
+          <p class="cs-body">The 16×9 and 9×16 generations of each scene came out similar but never identical — so both were stitched together in After Effects, compositing the most faithful facial performance into the final 9×16 frames. From there, an editor pass dialed in the Super&nbsp;8 texture and cut the scenes together. Each postcard shipped twice: a 16×9 and a 9×16 edit.</p>
+        </div>
+        <figure class="cs-col-side cs-reveal">
+          <video class="cs-video" muted loop playsinline preload="none" poster="/projects/mccartney/finishing-ae-poster.webp" data-src="/projects/mccartney/finishing-ae.mp4"></video>
+          <figcaption>COMPOSITING — AFTER EFFECTS</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <footer class="cs-end">
+      <span>MADE AT STABILITY AI</span>
+      <span>PAUL McCARTNEY — BOYS OF DUNGEON LANE</span>
+      <span>©2026</span>
+    </footer>
+
+  </template>
 
   <div class="cursor" aria-hidden="true"><span class="cursor-label"></span></div>
   <div class="grain" aria-hidden="true"></div>

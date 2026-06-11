@@ -9,6 +9,7 @@ import { initReveals, initRules, initParallax, heroIntro } from './js/reveals.js
 import { initWayfinder } from './js/wayfinder.js'
 import { initHeroScene } from './js/hero-scene.js'
 import { initProjects } from './js/projects.js'
+import { initCoverVideos } from './js/case-study.js'
 import { initCursor } from './js/cursor.js'
 
 gsap.registerPlugin(ScrollTrigger, Flip)
@@ -24,6 +25,7 @@ initParallax(reducedMotion)
 initWayfinder(reducedMotion)
 initHeroScene(reducedMotion)
 const projects = initProjects(lenis, reducedMotion)
+initCoverVideos(reducedMotion)
 initNav(lenis, projects.open)
 initCursor()
 

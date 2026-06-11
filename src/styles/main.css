@@ -131,18 +131,29 @@ html.js [data-reveal] { opacity: 0; }
   padding-block: 0.5rem;
 }
 .nav-links a sup { margin-right: 0.4em; opacity: 0.5; }
-.nav-links a::after {
-  content: '';
-  position: absolute;
-  left: 0; bottom: 0.2rem;
-  width: 100%; height: 1px;
-  background: currentColor;
-  transform: scaleX(0);
-  transform-origin: right;
-  transition: transform 0.5s var(--ease);
-}
-.nav-links a:hover::after { transform: scaleX(1); transform-origin: left; }
 .nav-ext { font-size: 0.85em; }
+
+/* rolling-text hover: duplicate label slides up from below */
+.roll {
+  position: relative;
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: bottom;
+}
+.roll > span {
+  display: block;
+  transition: transform 0.45s var(--ease);
+}
+.roll > span:last-child {
+  position: absolute;
+  top: 100%;
+  left: 0;
+}
+a:hover .roll > span,
+button:hover .roll > span,
+.contact-link:hover .roll > span {
+  transform: translateY(-100%);
+}
 
 /* Home appears only once you've scrolled past the hero */
 .nav-home {
@@ -349,32 +360,39 @@ section { padding: clamp(5rem, 12vh, 9rem) var(--pad); }
   overflow: hidden;
   width: 100%;
 }
-.cover::before {
-  content: '';
+/* .cover-media is oversized and parallaxed by GSAP as the page scrolls;
+   .cover-art holds the visual (swap the placeholder for an <img>) and
+   zooms on hover */
+.cover-media {
+  position: absolute;
+  inset: -8% 0;
+}
+.cover-art {
   position: absolute;
   inset: 0;
   transform: scale(1.001);
   transition: transform 1.1s var(--ease);
 }
-.project:hover .cover::before { transform: scale(1.055); }
+.cover-art img { width: 100%; height: 100%; object-fit: cover; }
+.project:hover .cover-art { transform: scale(1.055); }
 
 /* placeholder cover treatments — replaced by real images later */
-.c1::before {
+.c1 .cover-art {
   background:
     repeating-linear-gradient(-45deg, transparent 0 22px, rgba(245, 243, 244, 0.07) 22px 23px),
     linear-gradient(160deg, #2C2B29 0%, #1D1C1B 100%);
 }
-.c2::before {
+.c2 .cover-art {
   background:
     radial-gradient(ellipse 70% 55% at 50% 42%, rgba(245, 243, 244, 0.16) 0%, transparent 65%),
     linear-gradient(180deg, #232524 0%, #191A19 100%);
 }
-.c3::before {
+.c3 .cover-art {
   background:
     repeating-radial-gradient(circle at 70% 30%, transparent 0 34px, rgba(245, 243, 244, 0.07) 34px 35px),
     linear-gradient(200deg, #2E2C29 0%, #1C1B19 100%);
 }
-.c4::before {
+.c4 .cover-art {
   background:
     repeating-linear-gradient(0deg, transparent 0 38px, rgba(245, 243, 244, 0.06) 38px 39px),
     repeating-linear-gradient(90deg, transparent 0 38px, rgba(245, 243, 244, 0.06) 38px 39px),
@@ -657,6 +675,42 @@ section { padding: clamp(5rem, 12vh, 9rem) var(--pad); }
 .contact-link .rule { z-index: 1; }
 
 /* ============================================================
+   WAYFINDER + SCROLL PROGRESS
+   ============================================================ */
+.wayfinder {
+  position: fixed;
+  left: 1.1rem;
+  top: 50%;
+  z-index: 40;
+  transform: translateY(-50%);
+  writing-mode: vertical-rl;
+  font-size: 0.625rem;
+  letter-spacing: var(--track);
+  text-transform: uppercase;
+  color: var(--soft);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.5s var(--ease), color 0.9s var(--ease);
+}
+.wayfinder.is-visible { opacity: 1; }
+.progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 60;
+  width: 100%;
+  height: 2px;
+  background: var(--fg);
+  transform: scaleX(0);
+  transform-origin: left center;
+  pointer-events: none;
+  transition: background-color 0.9s var(--ease);
+}
+@media (max-width: 900px) {
+  .wayfinder { display: none; }
+}
+
+/* ============================================================
    CURSOR + GRAIN
    ============================================================ */
 .cursor {
@@ -746,6 +800,7 @@ section { padding: clamp(5rem, 12vh, 9rem) var(--pad); }
 @media (prefers-reduced-motion: reduce) {
   html.js .line-inner { transform: none; }
   html.js [data-reveal] { opacity: 1; }
-  .avail-dot, .hero-scroll, .grain { animation: none; }
+  .hero-scroll, .grain { animation: none; }
+  .roll > span { transition: none; }
   body { transition: none; }
 }

@@ -28,7 +28,8 @@ Deploy by pointing any static host (Netlify, Vercel, GitHub Pages) at `dist/` â€
 | `src/js/smooth-scroll.js` | Lenis â†” ScrollTrigger sync, anchor scrolling |
 | `src/js/hero-scene.js` | Three.js point-field behind the hero type |
 | `src/js/theme.js` | scroll-driven light/dark inversion (`data-theme` per section) |
-| `src/js/reveals.js` | hero intro timeline + scroll reveals |
+| `src/js/reveals.js` | hero intro timeline, scroll reveals, rules, parallax |
+| `src/js/wayfinder.js` | fixed section indicator + scroll-progress line |
 | `src/js/projects.js` | expand-in-place project overlay (GSAP Flip) |
 | `src/js/nav.js` | hide-on-scroll-down navbar |
 | `src/js/cursor.js` | custom cursor + magnetic links (fine pointers only) |

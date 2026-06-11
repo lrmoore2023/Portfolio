@@ -6,6 +6,17 @@
   <title>Liam Moore — Creative Technologist</title>
   <meta name="description" content="Liam Moore is a creative technologist specializing in AI, development and research. Leveraging emerging tech, creating impactful products." />
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23141412'/%3E%3Ctext x='16' y='21' font-family='Helvetica,Arial' font-size='13' font-weight='bold' fill='%23F5F3F4' text-anchor='middle'%3ELM%3C/text%3E%3C/svg%3E" />
+  <meta name="author" content="Liam Moore" />
+  <meta name="theme-color" content="#F5F3F4" />
+  <!-- social previews — set og:url (and absolute og:image) to the real domain when deploying -->
+  <meta property="og:title" content="Liam Moore — Creative Technologist" />
+  <meta property="og:description" content="Leveraging emerging tech. Creating impactful products. AI × Development × Research." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="/og.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Liam Moore — Creative Technologist" />
+  <meta name="twitter:description" content="Leveraging emerging tech. Creating impactful products. AI × Development × Research." />
+  <meta name="twitter:image" content="/og.png" />
   <link rel="preload" href="/fonts/ppneuemontreal-medium.otf" as="font" type="font/otf" crossorigin />
   <link rel="preload" href="/fonts/ppneuemontreal-book.otf" as="font" type="font/otf" crossorigin />
   <link rel="stylesheet" href="/src/styles/main.css" />
@@ -17,9 +28,9 @@
   <header class="site-nav" id="site-nav">
     <a class="nav-brand" href="#hero" data-scroll data-cursor>LM<span class="nav-brand-c">©</span></a>
     <nav class="nav-links" aria-label="Primary">
-      <a class="nav-home" href="#hero" data-scroll data-cursor><sup>00</sup>Home</a>
+      <a class="nav-home" href="#hero" data-scroll data-cursor><sup>00</sup><span class="roll"><span>Home</span><span aria-hidden="true">Home</span></span></a>
       <div class="nav-item">
-        <a href="#work" data-scroll data-cursor><sup>01</sup>Work</a>
+        <a href="#work" data-scroll data-cursor><sup>01</sup><span class="roll"><span>Work</span><span aria-hidden="true">Work</span></span></a>
         <div class="nav-drop">
           <div class="nav-drop-inner">
             <div class="nav-drop-preview" aria-hidden="true"></div>
@@ -27,10 +38,10 @@
           </div>
         </div>
       </div>
-      <a href="#about" data-scroll data-cursor><sup>02</sup>About</a>
-      <a href="#contact" data-scroll data-cursor><sup>03</sup>Contact</a>
+      <a href="#about" data-scroll data-cursor><sup>02</sup><span class="roll"><span>About</span><span aria-hidden="true">About</span></span></a>
+      <a href="#contact" data-scroll data-cursor><sup>03</sup><span class="roll"><span>Contact</span><span aria-hidden="true">Contact</span></span></a>
       <!-- PLACEHOLDER — replace public/resume.pdf with your real resume -->
-      <a href="/resume.pdf" target="_blank" rel="noopener" data-cursor>Resume<span class="nav-ext" aria-hidden="true">&nbsp;↗</span></a>
+      <a href="/resume.pdf" target="_blank" rel="noopener" data-cursor><span class="roll"><span>Resume</span><span aria-hidden="true">Resume</span></span><span class="nav-ext" aria-hidden="true">&nbsp;↗</span></a>
     </nav>
   </header>
 
@@ -84,7 +95,7 @@
             data-role="Concept, Creative Direction, Development"
             data-stack="Python — PyTorch — TouchDesigner"
             data-description="Placeholder description. A short paragraph about the concept behind the project, the problem it explores, and the outcome. Two to four sentences that give the work context without over-explaining it.">
-          <div class="cover c1"><span class="cover-num" aria-hidden="true">01</span><span class="cover-tag" aria-hidden="true">IMAGE — PLACEHOLDER</span></div>
+          <div class="cover c1"><div class="cover-media"><div class="cover-art"></div></div><span class="cover-num" aria-hidden="true">01</span><span class="cover-tag" aria-hidden="true">IMAGE — PLACEHOLDER</span></div>
           <div class="project-meta">
             <h3 class="project-title">Project Title One</h3>
             <span class="project-cat">AI Installation</span>
@@ -99,7 +110,7 @@
             data-role="Design, Development"
             data-stack="WebGL — GLSL — JavaScript"
             data-description="Placeholder description. A short paragraph about the concept behind the project, the problem it explores, and the outcome. Two to four sentences that give the work context without over-explaining it.">
-          <div class="cover c2"><span class="cover-num" aria-hidden="true">02</span><span class="cover-tag" aria-hidden="true">IMAGE — PLACEHOLDER</span></div>
+          <div class="cover c2"><div class="cover-media"><div class="cover-art"></div></div><span class="cover-num" aria-hidden="true">02</span><span class="cover-tag" aria-hidden="true">IMAGE — PLACEHOLDER</span></div>
           <div class="project-meta">
             <h3 class="project-title">Project Title Two</h3>
             <span class="project-cat">Web Experience</span>
@@ -114,7 +125,7 @@
             data-role="Research, Prototyping"
             data-stack="Python — Transformers — D3"
             data-description="Placeholder description. A short paragraph about the concept behind the project, the problem it explores, and the outcome. Two to four sentences that give the work context without over-explaining it.">
-          <div class="cover c3"><span class="cover-num" aria-hidden="true">03</span><span class="cover-tag" aria-hidden="true">IMAGE — PLACEHOLDER</span></div>
+          <div class="cover c3"><div class="cover-media"><div class="cover-art"></div></div><span class="cover-num" aria-hidden="true">03</span><span class="cover-tag" aria-hidden="true">IMAGE — PLACEHOLDER</span></div>
           <div class="project-meta">
             <h3 class="project-title">Project Title Three</h3>
             <span class="project-cat">Research</span>
@@ -129,7 +140,7 @@
             data-role="Product Design, Engineering"
             data-stack="React — Node — Anthropic API"
             data-description="Placeholder description. A short paragraph about the concept behind the project, the problem it explores, and the outcome. Two to four sentences that give the work context without over-explaining it.">
-          <div class="cover c4"><span class="cover-num" aria-hidden="true">04</span><span class="cover-tag" aria-hidden="true">IMAGE — PLACEHOLDER</span></div>
+          <div class="cover c4"><div class="cover-media"><div class="cover-art"></div></div><span class="cover-num" aria-hidden="true">04</span><span class="cover-tag" aria-hidden="true">IMAGE — PLACEHOLDER</span></div>
           <div class="project-meta">
             <h3 class="project-title">Project Title Four</h3>
             <span class="project-cat">Product</span>
@@ -186,12 +197,12 @@
         </p>
         <div class="contact-links">
           <a class="contact-link" href="mailto:lrmoore2023@gmail.com" data-cursor>
-            <span class="contact-link-label">EMAIL</span>
+            <span class="contact-link-label roll"><span>EMAIL</span><span aria-hidden="true">EMAIL</span></span>
             <span class="contact-link-value">lrmoore2023@gmail.com</span>
             <span class="contact-link-arrow" aria-hidden="true">↗</span>
           </a>
           <a class="contact-link" href="https://www.linkedin.com/in/liam-moore-02a4b6230/" target="_blank" rel="noopener" data-cursor>
-            <span class="contact-link-label">LINKEDIN</span>
+            <span class="contact-link-label roll"><span>LINKEDIN</span><span aria-hidden="true">LINKEDIN</span></span>
             <span class="contact-link-value">in/liam-moore</span>
             <span class="contact-link-arrow" aria-hidden="true">↗</span>
           </a>
@@ -205,8 +216,12 @@
   <footer class="site-footer">
     <span>©2026 LIAM MOORE</span>
     <span class="footer-time">LOCAL — <span id="clock">00:00:00</span></span>
-    <a href="#hero" data-scroll data-cursor>BACK TO TOP ↑</a>
+    <a href="#hero" data-scroll data-cursor><span class="roll"><span>BACK TO TOP ↑</span><span aria-hidden="true">BACK TO TOP ↑</span></span></a>
   </footer>
+
+  <!-- fixed wayfinding: current section at the left edge + scroll progress line -->
+  <div class="wayfinder" aria-hidden="true"><span class="wf-text">01 — WORK</span></div>
+  <div class="progress" aria-hidden="true"></div>
 
   <!-- ============ PROJECT OVERLAY ============ -->
   <div class="pv" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Project details">

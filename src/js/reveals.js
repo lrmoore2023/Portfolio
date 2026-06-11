@@ -126,6 +126,39 @@ export function initRules(reducedMotion) {
   })
 }
 
+// Scroll-depth parallax: cover interiors drift as projects travel the
+// viewport, and the hero type exits at offset speeds when scrolling away
+export function initParallax(reducedMotion) {
+  if (reducedMotion) return
+
+  document.querySelectorAll('.cover-media').forEach((media) => {
+    gsap.fromTo(media,
+      { yPercent: -5 },
+      {
+        yPercent: 5,
+        ease: 'none',
+        scrollTrigger: {
+          trigger: media.closest('.project'),
+          start: 'top bottom',
+          end: 'bottom top',
+          scrub: true,
+        },
+      },
+    )
+  })
+
+  const exit = (target, vars) => {
+    gsap.to(target, {
+      ...vars,
+      ease: 'none',
+      scrollTrigger: { trigger: '#hero', start: 'top top', end: 'bottom top', scrub: true },
+    })
+  }
+  exit('.hero-name', { yPercent: 24 })
+  exit('.hero-tagline', { yPercent: 60, opacity: 0.25 })
+  exit('.hero-canvas', { opacity: 0.5 })
+}
+
 // Hero load choreography — runs once fonts are ready
 export function heroIntro(reducedMotion) {
   // reduced motion: CSS overrides already keep everything visible

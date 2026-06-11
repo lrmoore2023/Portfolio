@@ -51,7 +51,9 @@ export function initNav(lenis, openProject) {
     if (preview.dataset.current === project.dataset.title) return
     preview.dataset.current = project.dataset.title
     const clone = project.querySelector('.cover').cloneNode(true)
-    clone.removeAttribute('style') // strip reveal-animation inline styles
+    // strip reveal/parallax inline styles from the clone and its children
+    clone.removeAttribute('style')
+    clone.querySelectorAll('[style]').forEach((n) => n.removeAttribute('style'))
     preview.replaceChildren(clone)
     gsap.fromTo(clone,
       { opacity: 0, scale: 1.08 },

@@ -5,7 +5,8 @@ import { Flip } from 'gsap/Flip'
 import { initSmoothScroll, initAnchors } from './js/smooth-scroll.js'
 import { initNav } from './js/nav.js'
 import { initTheme } from './js/theme.js'
-import { initReveals, initRules, heroIntro } from './js/reveals.js'
+import { initReveals, initRules, initParallax, heroIntro } from './js/reveals.js'
+import { initWayfinder } from './js/wayfinder.js'
 import { initHeroScene } from './js/hero-scene.js'
 import { initProjects } from './js/projects.js'
 import { initCursor } from './js/cursor.js'
@@ -19,6 +20,8 @@ initAnchors(lenis)
 initTheme()
 initReveals(reducedMotion)
 initRules(reducedMotion)
+initParallax(reducedMotion)
+initWayfinder(reducedMotion)
 initHeroScene(reducedMotion)
 const projects = initProjects(lenis, reducedMotion)
 initNav(lenis, projects.open)

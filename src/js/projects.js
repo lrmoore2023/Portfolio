@@ -46,11 +46,15 @@ export function initProjects(lenis, reducedMotion) {
     home = cover.parentElement
     homeNext = cover.nextElementSibling
 
+    // pin the grid item's height so removing the cover doesn't shorten the
+    // page (which would clamp the scroll position and cause a snap on close)
+    home.style.minHeight = `${home.offsetHeight}px`
+
     pv.classList.add('is-open')
     pv.setAttribute('aria-hidden', 'false')
     pv.scrollTop = 0
     if (lenis) lenis.stop()
-    document.documentElement.style.overflow = 'hidden'
+    else document.documentElement.style.overflow = 'hidden'
 
     const state = Flip.getState(cover)
     media.appendChild(cover)
@@ -86,9 +90,10 @@ export function initProjects(lenis, reducedMotion) {
       onComplete: () => {
         pv.classList.remove('is-open')
         pv.setAttribute('aria-hidden', 'true')
+        home.style.minHeight = ''
         if (lenis) lenis.start()
-        document.documentElement.style.overflow = ''
-        if (lastFocus) lastFocus.focus?.()
+        else document.documentElement.style.overflow = ''
+        if (lastFocus) lastFocus.focus?.({ preventScroll: true })
         active = null
         animating = false
       },

@@ -5,7 +5,7 @@ import { Flip } from 'gsap/Flip'
 import { initSmoothScroll, initAnchors } from './js/smooth-scroll.js'
 import { initNav } from './js/nav.js'
 import { initTheme } from './js/theme.js'
-import { initReveals, heroIntro } from './js/reveals.js'
+import { initReveals, initRules, heroIntro } from './js/reveals.js'
 import { initHeroScene } from './js/hero-scene.js'
 import { initProjects } from './js/projects.js'
 import { initCursor } from './js/cursor.js'
@@ -19,6 +19,7 @@ initAnchors(lenis)
 initNav()
 initTheme()
 initReveals(reducedMotion)
+initRules(reducedMotion)
 initHeroScene(reducedMotion)
 initProjects(lenis, reducedMotion)
 initCursor(reducedMotion)

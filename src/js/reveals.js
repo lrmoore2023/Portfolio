@@ -59,6 +59,50 @@ export function initReveals(reducedMotion) {
   })
 }
 
+// Divider lines draw in right-to-left, scrubbed to scroll: they grow as the
+// element rises through the viewport and shrink again on the way back up.
+// Reduced motion keeps the static CSS borders instead.
+export function initRules(reducedMotion) {
+  if (reducedMotion) return
+
+  const hosts = document.querySelectorAll(
+    '.section-head, .project-meta, .capability, .contact-link, .site-footer',
+  )
+
+  hosts.forEach((host) => {
+    host.classList.add('has-rule')
+    const spans = []
+    const make = (cls) => {
+      const s = document.createElement('span')
+      s.className = cls
+      s.setAttribute('aria-hidden', 'true')
+      host.appendChild(s)
+      spans.push(s)
+    }
+    make('rule')
+    if (host.matches('.capability:last-child, .contact-link:last-child')) {
+      host.classList.add('has-rule-bottom')
+      make('rule rule--bottom')
+    }
+
+    if (host.matches('.site-footer')) {
+      // the footer never travels far enough up the viewport for a scrub range
+      gsap.fromTo(spans, { scaleX: 0 }, {
+        scaleX: 1,
+        duration: 1.2,
+        ease: 'power3.inOut',
+        scrollTrigger: { trigger: host, start: 'top 99%', toggleActions: 'play none none reverse' },
+      })
+    } else {
+      gsap.fromTo(spans, { scaleX: 0 }, {
+        scaleX: 1,
+        ease: 'none',
+        scrollTrigger: { trigger: host, start: 'top 95%', end: 'top 65%', scrub: true },
+      })
+    }
+  })
+}
+
 // Hero load choreography — runs once fonts are ready
 export function heroIntro(reducedMotion) {
   // reduced motion: CSS overrides already keep everything visible

@@ -164,6 +164,8 @@ html.js [data-reveal] { opacity: 0; }
   height: 100%;
   padding: calc(var(--nav-h) + 1rem) var(--pad) 2rem;
   pointer-events: none;
+  display: flex;
+  flex-direction: column;
 }
 .hero-name {
   font-size: var(--fs-hero);
@@ -180,10 +182,15 @@ html.js [data-reveal] { opacity: 0; }
   max-width: 30ch;
   color: var(--soft);
 }
+.hero-bottom {
+  margin-top: auto;
+  padding-top: 2rem;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 2rem;
+}
 .hero-role {
-  position: absolute;
-  right: var(--pad);
-  bottom: clamp(5rem, 16vh, 9rem);
   text-align: right;
   font-size: clamp(1.75rem, 4.4vw, 4.25rem);
   font-weight: 700;
@@ -191,28 +198,14 @@ html.js [data-reveal] { opacity: 0; }
   letter-spacing: -0.02em;
 }
 .hero-meta {
-  position: absolute;
-  left: var(--pad);
-  bottom: 2rem;
   display: grid;
-  gap: 0.5rem;
+  gap: 0.625rem;
   font-size: var(--fs-label);
   letter-spacing: var(--track);
   text-transform: uppercase;
 }
 .hero-meta-item { display: flex; align-items: center; gap: 0.6em; }
-.avail-dot {
-  width: 8px; height: 8px;
-  border-radius: 50%;
-  background: #4C7A5C;
-  animation: pulse 2.4s ease-in-out infinite;
-}
-@keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.35; } }
 .hero-scroll {
-  position: absolute;
-  left: 50%;
-  bottom: 2rem;
-  transform: translateX(-50%);
   font-size: var(--fs-label);
   letter-spacing: var(--track);
   animation: blink 2.8s ease-in-out infinite;
@@ -552,6 +545,29 @@ section { padding: clamp(5rem, 12vh, 9rem) var(--pad); }
 .pv-close:hover { opacity: 0.55; }
 
 /* ============================================================
+   ANIMATED RULES
+   JS swaps static borders for .rule spans that scale with scroll
+   (origin right → they draw in right-to-left). Reduced motion
+   keeps the plain CSS borders.
+   ============================================================ */
+.has-rule { position: relative; border-top-color: transparent; }
+.has-rule.has-rule-bottom { border-bottom-color: transparent; }
+.rule {
+  position: absolute;
+  left: 0;
+  top: -1px;
+  width: 100%;
+  height: 1px;
+  background: var(--rule);
+  transform: scaleX(0);
+  transform-origin: right center;
+  pointer-events: none;
+}
+.rule--bottom { top: auto; bottom: -1px; }
+/* the contact rows' hover fill sits above an absolutely-placed rule */
+.contact-link .rule { z-index: 1; }
+
+/* ============================================================
    CURSOR + GRAIN
    ============================================================ */
 .cursor {
@@ -602,13 +618,12 @@ section { padding: clamp(5rem, 12vh, 9rem) var(--pad); }
   :root { --nav-h: 4rem; }
 
   .hero { min-height: 540px; }
-  .hero-role {
-    position: static;
-    text-align: left;
-    margin-top: clamp(1.5rem, 5vh, 3rem);
+  .hero-bottom {
+    flex-direction: column-reverse;
+    align-items: flex-start;
+    gap: 2.5rem;
   }
-  .hero-meta { bottom: 4.5rem; }
-  .hero-scroll { left: var(--pad); transform: none; bottom: 2rem; }
+  .hero-role { text-align: left; }
 
   .project,
   .project:nth-child(even) {
@@ -633,7 +648,6 @@ section { padding: clamp(5rem, 12vh, 9rem) var(--pad); }
 @media (max-width: 520px) {
   .nav-links { gap: 1.1rem; }
   .nav-links a sup { display: none; }
-  .hero-meta-item:last-child { display: none; }
   .contact-link-label { display: none; }
 }
 

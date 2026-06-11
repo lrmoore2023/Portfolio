@@ -79,12 +79,17 @@ export function initProjects(lenis, reducedMotion) {
     media.appendChild(cover)
     home.insertBefore(placeholder, homeNext)
 
+    // Flip makes the cover position:absolute for the animation — in case
+    // mode that would collapse the auto-height hero and snap the content
+    // below upward, so pin the media's height until the cover settles
+    if (caseCtl) media.style.height = `${media.offsetHeight}px`
+
     const dur = reducedMotion ? 0 : 0.9
     Flip.from(state, {
       duration: dur,
       ease: 'power4.inOut',
       absolute: true,
-      onComplete: () => { animating = false; closeBtn.focus() },
+      onComplete: () => { media.style.height = ''; animating = false; closeBtn.focus() },
     })
     gsap.fromTo(backdrop, { opacity: 0 }, { opacity: 1, duration: dur * 0.7, ease: 'power2.out' })
     gsap.fromTo(content,
@@ -107,6 +112,7 @@ export function initProjects(lenis, reducedMotion) {
       if (caseCtl) { caseCtl.destroy(); caseCtl = null }
       pv.classList.remove('pv--case')
       caseMount.replaceChildren()
+      media.style.height = ''
       gsap.set(pv, { clearProps: 'opacity' })
       if (lenis) lenis.start()
       else document.documentElement.style.overflow = ''
@@ -129,6 +135,9 @@ export function initProjects(lenis, reducedMotion) {
       })
       return
     }
+
+    // same height pin on the way out — the cover leaves the hero's flow
+    if (caseCtl) media.style.height = `${media.offsetHeight}px`
 
     const state = Flip.getState(cover)
     home.replaceChild(cover, placeholder)

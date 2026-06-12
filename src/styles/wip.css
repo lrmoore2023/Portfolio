@@ -1,0 +1,156 @@
+/* ============================================================
+   WIP GATE — temporary under-construction holding page.
+   Active only when WIP_MODE (src/config.js) is true; delete this
+   file together with the flag and src/js/wip-gate.js at launch.
+   ============================================================ */
+
+/* lock the page and drop the real site out of view + tab order */
+html.wip body { overflow: hidden; height: 100svh; }
+html.wip .site-nav,
+html.wip main,
+html.wip .site-footer { display: none; }
+
+.wip-gate {
+  position: fixed;
+  inset: 0;
+  z-index: 100; /* below .grain (150) and .cursor (200) */
+  display: flex;
+  flex-direction: column;
+  background: var(--paper);
+  color: var(--ink);
+  overflow: hidden;
+}
+
+.wip-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+html.js .wip-canvas { opacity: 0; }
+
+.wip-top,
+.wip-center,
+.wip-bottom { position: relative; z-index: 1; }
+
+.wip-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: var(--nav-h);
+  padding-inline: var(--pad);
+}
+.wip-brand { font-weight: 700; font-size: 1.375rem; letter-spacing: -0.02em; }
+.wip-brand-c { font-size: 0.5em; vertical-align: super; font-weight: 400; }
+.wip-status { color: var(--soft); }
+
+.wip-center {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-inline: var(--pad);
+}
+.wip-title {
+  font-size: var(--fs-hero);
+  font-weight: 500;
+  line-height: 0.86;
+  letter-spacing: -0.035em;
+  text-transform: uppercase;
+}
+.wip-caret { display: inline-block; font-weight: 200; }
+.wip-sub {
+  margin-top: clamp(1.25rem, 3.5vh, 2.5rem);
+  font-size: clamp(1rem, 1.6vw, 1.5rem);
+  color: var(--soft);
+}
+
+.wip-progress {
+  margin-top: clamp(2rem, 6vh, 4rem);
+  max-width: 40rem;
+  display: grid;
+  gap: 0.875rem;
+}
+.wip-percent {
+  font-size: clamp(0.8125rem, 1.2vw, 1rem);
+  letter-spacing: var(--track);
+  font-variant-numeric: tabular-nums;
+}
+.wip-odo { display: inline-block; overflow: hidden; height: 0.9em; vertical-align: baseline; }
+.wip-odo-strip { display: block; }
+.wip-odo-strip span { display: block; height: 0.9em; line-height: 0.9; }
+
+.wip-rule {
+  position: relative;
+  height: 1px;
+  background: var(--rule);
+  transform-origin: left;
+}
+html.js .wip-rule { transform: scaleX(0); }
+.wip-rule-fill {
+  position: absolute;
+  inset: 0;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: left;
+}
+
+.wip-bottom { margin-top: auto; }
+.wip-foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  padding: 0 var(--pad) 1.25rem;
+}
+.wip-links { display: flex; gap: clamp(1.5rem, 3vw, 3rem); }
+.wip-links a {
+  font-size: var(--fs-label);
+  letter-spacing: var(--track);
+  text-transform: uppercase;
+  position: relative;
+  padding-block: 0.5rem;
+}
+.wip-links a::after {
+  content: '';
+  position: absolute;
+  left: 0; bottom: 0.2rem;
+  width: 100%; height: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.5s var(--ease);
+}
+.wip-links a:hover::after { transform: scaleX(1); transform-origin: left; }
+.wip-clock {
+  color: var(--soft);
+  font-variant-numeric: tabular-nums;
+}
+
+.wip-marquee {
+  border-top: 1px solid var(--rule);
+  padding-block: 0.875rem;
+  overflow: hidden;
+  white-space: nowrap;
+}
+.wip-marquee-track { display: inline-flex; will-change: transform; }
+.wip-marquee-track span {
+  font-size: var(--fs-label);
+  letter-spacing: var(--track);
+  text-transform: uppercase;
+  color: var(--soft);
+}
+
+@media (max-width: 640px) {
+  .wip-foot {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html.js .wip-canvas { opacity: 1; }
+  html.js .wip-rule { transform: none; }
+}

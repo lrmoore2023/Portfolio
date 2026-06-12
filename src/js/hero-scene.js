@@ -3,8 +3,7 @@ import * as THREE from 'three'
 // Hero WebGL: a fullscreen domain-warped noise shader — slow tonal "ink wash"
 // clouds in the paper greys, with a soft lens distortion that follows the
 // cursor. Quiet atmosphere behind the typography rather than competing texture.
-export function initHeroScene(reducedMotion) {
-  const canvas = document.querySelector('.hero-canvas')
+export function initHeroScene(reducedMotion, canvas = document.querySelector('.hero-canvas')) {
   if (!canvas) return
 
   const isTouch = window.matchMedia('(pointer: coarse)').matches

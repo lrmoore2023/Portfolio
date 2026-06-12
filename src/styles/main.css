@@ -880,12 +880,18 @@ section { padding: clamp(5rem, 12vh, 9rem) var(--pad); }
   gap: 0.875rem;
   align-items: start;
 }
-.cs-diptych img {
+.cs-diptych img,
+.cs-diptych video {
   width: 100%;
   height: clamp(15rem, 24vw, 24rem);
   object-fit: cover;
 }
-.cs-detail-media .is-tall { max-width: min(100%, 17rem); }
+.cs-detail-media .is-tall { max-width: min(100%, 19rem); }
+
+/* finishing — copy bridges into the two editor artifacts */
+.cs-fin-copy { grid-column: 1 / span 4; align-self: center; }
+.cs-fin-a { grid-column: 5 / span 4; }
+.cs-fin-b { grid-column: 9 / span 4; }
 
 /* end credit */
 .cs-end {
@@ -1052,6 +1058,7 @@ section { padding: clamp(5rem, 12vh, 9rem) var(--pad); }
   .cs-col-main, .cs-col-side { grid-column: 1 / -1; }
   .cs-tript-before, .cs-tript-copy, .cs-tript-after { grid-column: 1 / -1; }
   .cs-tript-before { max-width: min(100%, 26rem); }
+  .cs-fin-copy, .cs-fin-a, .cs-fin-b { grid-column: 1 / -1; }
   .cs-plate, .cs-plate:nth-child(n) { grid-column: 1 / -1; grid-row: auto; align-self: auto; }
   .cs-plate:nth-child(even) .cs-plate-media { max-width: min(100%, 24rem); margin-inline: auto; }
   .cs-stats { grid-template-columns: 1fr; row-gap: 2.25rem; }

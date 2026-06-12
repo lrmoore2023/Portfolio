@@ -109,7 +109,7 @@ function initCaseRules(panel, reducedMotion) {
     host.appendChild(span)
     draw(host, span, 'top')
 
-    if (host.matches('.cs-pipeline li:last-child, .cs-detail:last-child')) {
+    if (host.matches('.cs-pipeline li:last-child')) {
       host.classList.add('has-rule-bottom')
       const bottom = document.createElement('span')
       bottom.className = 'rule rule--bottom'

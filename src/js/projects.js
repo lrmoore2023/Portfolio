@@ -74,6 +74,8 @@ export function initProjects(lenis, reducedMotion) {
       pv.classList.add('pv--case')
       caseMount.appendChild(tpl.content.cloneNode(true))
       caseCtl = initCaseStudy(panel, reducedMotion)
+      // the end-of-document affordance rides the panel back up and closes
+      caseMount.querySelector('.cs-close-end')?.addEventListener('click', close)
     }
 
     const state = Flip.getState(cover)
@@ -131,42 +133,39 @@ export function initProjects(lenis, reducedMotion) {
       animating = false
     }
 
-    // deep in a case study the hero cover is far offscreen — Flip-flying it
-    // back would streak across the document, so fade the overlay out instead
-    if (panel.scrollTop > window.innerHeight * 0.5 && !reducedMotion) {
-      gsap.to(pv, {
-        opacity: 0,
-        duration: 0.5,
-        ease: 'power2.inOut',
-        onComplete: () => {
-          home.replaceChild(cover, placeholder)
-          finish()
-        },
+    const proceed = () => {
+      // height pin on the way out — the cover leaves the hero's flow
+      if (caseCtl) media.style.height = `${media.offsetHeight}px`
+
+      const state = Flip.getState(cover)
+      home.replaceChild(cover, placeholder)
+      // the cover now lives in the page, UNDER the overlay (z 80) — without
+      // a lift it vanishes behind the backdrop until the fade catches up
+      cover.style.zIndex = 100
+
+      const dur = reducedMotion ? 0 : 0.8
+      Flip.from(state, {
+        duration: dur,
+        ease: 'power4.inOut',
+        absolute: true,
+        onComplete: finish,
       })
-      return
+      // Flip just made the cover absolute — fill its flow slot for the
+      // duration of the animation so the meta row doesn't jump upward
+      if (!reducedMotion) home.insertBefore(placeholder, homeNext)
+      gsap.to([content, closeBtn], { opacity: 0, duration: Math.max(dur * 0.4, 0.01) })
+      gsap.to(backdrop, { opacity: 0, duration: Math.max(dur * 0.8, 0.01), delay: dur * 0.15 })
     }
 
-    // same height pin on the way out — the cover leaves the hero's flow
-    if (caseCtl) media.style.height = `${media.offsetHeight}px`
-
-    const state = Flip.getState(cover)
-    home.replaceChild(cover, placeholder)
-    // the cover now lives in the page, UNDER the overlay (z 80) — without a
-    // lift it vanishes behind the backdrop until the fade catches up
-    cover.style.zIndex = 100
-
-    const dur = reducedMotion ? 0 : 0.8
-    Flip.from(state, {
-      duration: dur,
-      ease: 'power4.inOut',
-      absolute: true,
-      onComplete: finish,
-    })
-    // Flip just made the cover absolute — fill its flow slot for the
-    // duration of the animation so the meta row doesn't jump upward
-    if (!reducedMotion) home.insertBefore(placeholder, homeNext)
-    gsap.to([content, closeBtn], { opacity: 0, duration: Math.max(dur * 0.4, 0.01) })
-    gsap.to(backdrop, { opacity: 0, duration: Math.max(dur * 0.8, 0.01), delay: dur * 0.15 })
+    // ride back to the top first so the cover always flips out of its hero
+    // seat, however deep the reader is in the document
+    if (panel.scrollTop > 4) {
+      if (reducedMotion) { panel.scrollTop = 0; proceed(); return }
+      const dur = Math.min(1.1, 0.45 + (panel.scrollTop / panel.clientHeight) * 0.08)
+      gsap.to(panel, { scrollTop: 0, duration: dur, ease: 'power3.inOut', onComplete: proceed })
+      return
+    }
+    proceed()
   }
 
   document.querySelectorAll('.project').forEach((project) => {

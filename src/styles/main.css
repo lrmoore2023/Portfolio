@@ -648,6 +648,20 @@ section { padding: clamp(5rem, 12vh, 9rem) var(--pad); }
   padding: 0.5rem 0;
 }
 .pv-close:hover { opacity: 0.55; }
+/* reading progress for the case-study document — same line language as
+   the page-level .progress, but driven by the panel's own scroll */
+.pv-progress {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 2px;
+  background: var(--fg);
+  transform: scaleX(0);
+  transform-origin: left center;
+  pointer-events: none;
+  z-index: 6;
+  display: none;
+}
+.pv--case .pv-progress { display: block; }
 
 /* ============================================================
    CASE STUDY (.pv--case) — long-form overlay document
@@ -804,7 +818,9 @@ section { padding: clamp(5rem, 12vh, 9rem) var(--pad); }
   font-weight: 500;
   letter-spacing: -0.01em;
   text-transform: uppercase;
+  transition: opacity 0.4s ease;
 }
+.cs-plate:hover .cs-plate-title { opacity: 0.6; }
 
 /* challenge — numbered pipeline + before/after stack */
 .cs-pipeline { margin-top: 2.5rem; list-style: none; }
@@ -900,6 +916,7 @@ section { padding: clamp(5rem, 12vh, 9rem) var(--pad); }
   padding: 1.5rem 0 5rem;
   display: flex;
   justify-content: space-between;
+  align-items: baseline;
   gap: 1rem;
   flex-wrap: wrap;
   font-size: 0.625rem;
@@ -907,6 +924,17 @@ section { padding: clamp(5rem, 12vh, 9rem) var(--pad); }
   text-transform: uppercase;
   color: var(--soft);
 }
+.cs-close-end {
+  background: none;
+  border: none;
+  padding: 0;
+  color: var(--fg);
+  font-family: inherit;
+  font-size: 0.625rem;
+  letter-spacing: var(--track);
+  text-transform: uppercase;
+}
+.cs-close-end:hover { opacity: 0.55; }
 
 /* reveals — same 36px fade-up language as the page, observer-driven */
 .pv--case .cs-reveal {

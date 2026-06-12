@@ -53,6 +53,17 @@ export function initCaseStudy(panel, reducedMotion) {
   const audio = initPlateAudio(panel)
   const rules = initCaseRules(panel, reducedMotion)
 
+  // reading progress line, scaled to the panel's own scroll
+  const progress = document.querySelector('.pv-progress')
+  const onScroll = progress && (() => {
+    const max = panel.scrollHeight - panel.clientHeight
+    progress.style.transform = `scaleX(${max > 0 ? panel.scrollTop / max : 0})`
+  })
+  if (onScroll) {
+    panel.addEventListener('scroll', onScroll, { passive: true })
+    onScroll()
+  }
+
   return {
     // called once the open Flip settles — the hero collapses to ~0 while the
     // cover is mid-flight, so rule positions measured at init are stale
@@ -62,6 +73,10 @@ export function initCaseStudy(panel, reducedMotion) {
     destroy() {
       observers.forEach((o) => o.disconnect())
       rules.forEach((t) => { t.scrollTrigger?.kill(); t.kill() })
+      if (onScroll) {
+        panel.removeEventListener('scroll', onScroll)
+        progress.style.transform = 'scaleX(0)'
+      }
       audio.muteAll()
       videos.forEach((v) => v.pause())
     },

@@ -63,6 +63,7 @@ export function initProjects(lenis, reducedMotion) {
 
     pv.classList.add('is-open')
     pv.setAttribute('aria-hidden', 'false')
+    document.dispatchEvent(new CustomEvent('cursor:clear'))
     panel.scrollTop = 0
     if (lenis) lenis.stop()
     else document.documentElement.style.overflow = 'hidden'
@@ -115,6 +116,7 @@ export function initProjects(lenis, reducedMotion) {
     const finish = () => {
       placeholder.remove()
       cover.style.zIndex = ''
+      document.dispatchEvent(new CustomEvent('cursor:clear'))
       pv.classList.remove('is-open')
       pv.setAttribute('aria-hidden', 'true')
       if (caseCtl) { caseCtl.destroy(); caseCtl = null }

@@ -36,4 +36,11 @@ export function initCursor() {
     if (el.contains(e.relatedTarget)) return
     cursor.classList.remove('has-label', 'is-hover')
   })
+
+  // the element under a stationary pointer can be swapped out from beneath
+  // it (e.g. a project card opening into the overlay) without any boundary
+  // event firing — let those flows reset the cursor explicitly
+  document.addEventListener('cursor:clear', () => {
+    cursor.classList.remove('has-label', 'is-hover')
+  })
 }

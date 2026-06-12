@@ -129,7 +129,8 @@ export function initHeroScene(reducedMotion, canvas = document.querySelector('.h
   }
 
   const clock = new THREE.Clock()
-  let running = true
+  let visible = true
+  let occluded = false
 
   function frame() {
     uniforms.uTime.value = clock.getElapsedTime()
@@ -144,9 +145,12 @@ export function initHeroScene(reducedMotion, canvas = document.querySelector('.h
     return
   }
 
-  renderer.setAnimationLoop(() => { if (running) frame() })
+  renderer.setAnimationLoop(() => { if (visible && !occluded) frame() })
 
   // pause when the hero is offscreen (rAF already pauses on hidden tabs)
-  const io = new IntersectionObserver(([entry]) => { running = entry.isIntersecting })
+  const io = new IntersectionObserver(([entry]) => { visible = entry.isIntersecting })
   io.observe(canvas)
+  // ...and while the project overlay covers the page (IO can't see occlusion)
+  document.addEventListener('overlay:open', () => { occluded = true })
+  document.addEventListener('overlay:close', () => { occluded = false })
 }

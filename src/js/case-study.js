@@ -1,5 +1,6 @@
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { initRadarCase } from './case-radar.js'
 
 // Long-form case-study mode for the project overlay. Rich content is authored
 // as an inert <template> in index.html and cloned into .pv-case when a project
@@ -59,6 +60,7 @@ export function initCaseStudy(panel, reducedMotion) {
   const rules = initCaseRules(panel, reducedMotion)
   rules.push(...initDrift(panel, reducedMotion))
   rules.push(...initStats(panel, reducedMotion, observers))
+  const radar = initRadarCase(panel, reducedMotion, observers)
   initWayfinder(panel, observers)
 
   // reading progress line, scaled to the panel's own scroll
@@ -81,6 +83,7 @@ export function initCaseStudy(panel, reducedMotion) {
     destroy() {
       observers.forEach((o) => o.disconnect())
       rules.forEach((t) => { t.scrollTrigger?.kill(); t.kill() })
+      radar.destroy()
       if (onScroll) {
         panel.removeEventListener('scroll', onScroll)
         progress.style.transform = 'scaleX(0)'
@@ -125,12 +128,12 @@ function initStats(panel, reducedMotion, observers) {
     el.classList.add('cs-odo')
     el.innerHTML = `<span class="cs-odo-strip"><span>${'0'.repeat(final.length)}</span><span>${final}</span></span>`
   })
-  const counter = stats.querySelector('[data-countup]')
-  if (counter) {
+  const counters = stats.querySelectorAll('[data-countup]')
+  counters.forEach((counter) => {
     // reserve the final width so the trailing S never drifts mid-count
     counter.style.minWidth = `${counter.offsetWidth}px`
     counter.textContent = '0'
-  }
+  })
 
   const tweens = []
   const io = new IntersectionObserver((entries) => {
@@ -140,7 +143,7 @@ function initStats(panel, reducedMotion, observers) {
       stats.querySelectorAll('.cs-odo-strip').forEach((strip, i) => {
         tweens.push(gsap.to(strip, { yPercent: -50, duration: 1, ease: 'power4.inOut', delay: 0.2 + i * 0.15 }))
       })
-      if (counter) {
+      counters.forEach((counter) => {
         const state = { v: 0 }
         tweens.push(gsap.to(state, {
           v: parseInt(counter.dataset.countup, 10),
@@ -149,7 +152,7 @@ function initStats(panel, reducedMotion, observers) {
           delay: 0.25,
           onUpdate: () => { counter.textContent = Math.floor(state.v) },
         }))
-      }
+      })
     })
   }, { root: panel, threshold: 0.4 })
   io.observe(stats)

@@ -119,17 +119,18 @@
         </li>
 
         <li class="project" data-cursor-label="OPEN"
-            data-title="Project Title Three"
-            data-category="Research"
-            data-year="2024"
-            data-role="Research, Prototyping"
-            data-stack="Python — Transformers — D3"
-            data-description="Placeholder description. A short paragraph about the concept behind the project, the problem it explores, and the outcome. Two to four sentences that give the work context without over-explaining it.">
-          <div class="cover c3"><div class="cover-media"><div class="cover-art"></div></div><span class="cover-num" aria-hidden="true">03</span><span class="cover-tag" aria-hidden="true">IMAGE — PLACEHOLDER</span></div>
+            data-title="Research Radar"
+            data-category="Agentic Systems — Research"
+            data-year="2026"
+            data-role="Architecture, Agent &amp; Pipeline Engineering, Frontend"
+            data-stack="Python — FastAPI — ChromaDB — vLLM — Next.js"
+            data-case="case-research-radar"
+            data-description="An agentic research-discovery system built at Stability AI. Six sources swept every six hours — deduplicated, gated for relevance, scored for impact — feeding a chat that goes and looks for itself when the local knowledge base can't answer.">
+          <div class="cover c3"><div class="cover-media"><div class="cover-art"><video class="cover-video" width="1600" height="900" muted loop playsinline preload="none" poster="/projects/research-radar/cover-poster.webp" data-src="/projects/research-radar/cover.mp4" aria-hidden="true"></video></div></div><span class="cover-num" aria-hidden="true">03</span></div>
           <div class="project-meta">
-            <h3 class="project-title">Project Title Three</h3>
-            <span class="project-cat">Research</span>
-            <span class="project-year">2024</span>
+            <h3 class="project-title">Research Radar</h3>
+            <span class="project-cat">Agentic Systems — Research</span>
+            <span class="project-year">2026</span>
           </div>
         </li>
 
@@ -449,6 +450,268 @@
     <footer class="cs-end">
       <span>MADE AT STABILITY AI</span>
       <span>PAUL McCARTNEY — THE BOYS OF DUNGEON LANE</span>
+      <button class="cs-close-end" type="button" data-cursor>CLOSE PROJECT&nbsp;↑</button>
+    </footer>
+
+  </template>
+
+  <!-- ============ CASE STUDY — RESEARCH RADAR ============
+       Same contract as above: .cs-reveal only, kicker per section,
+       media lazy via data-src. The radar band, flow diagram, terminal
+       and product mocks are initialized by case-radar.js. -->
+  <template id="case-research-radar">
+
+    <section class="cs-section">
+      <div class="cs-head cs-reveal">
+        <span class="cs-kicker">01 — The Firehose</span>
+        <h4 class="cs-h">Nobody can read it all</h4>
+      </div>
+      <div class="cs-grid">
+        <div class="cs-col-main cs-reveal">
+          <p class="cs-lede">Every morning the field publishes more than anyone can read. Papers, models, datasets, repos — six firehoses pointed at one team.</p>
+          <p class="cs-body">At a frontier lab, missing the right paper by a week has a real cost — and so does reading everything, because the price of that is your week. Research Radar began as a simple question: what if the reading list could assemble itself, and argue for its own ordering?</p>
+        </div>
+        <figure class="cs-col-side cs-reveal cs-ticker">
+          <div class="cs-ticker-mask" aria-hidden="true">
+            <ul class="cs-ticker-col">
+              <li>2506.04417 — Anchored Rectified Flows for One-Step Generation</li>
+              <li>2506.04391 — Sparse Mixture Routing in Video Diffusion Backbones</li>
+              <li>2506.04356 — Token Merging Revisited: Redundancy in Visual Streams</li>
+              <li>2506.04298 — Q-Sparse Attention for Million-Token Inference</li>
+              <li>2506.04244 — Distilling Flow Matching with Consistency Anchors</li>
+              <li>2506.04199 — Open-Vocabulary Segmentation from Frozen VLMs</li>
+              <li>2506.04158 — Latent Upscaling Without a Second Model</li>
+              <li>2506.04102 — Preference Optimization Beyond Pairwise Labels</li>
+              <li>2506.04077 — Trajectory Conditioning for Persistent Identity</li>
+              <li>2506.04031 — KV-Cache Eviction as a Learned Policy</li>
+              <li>2506.03988 — Audio-Visual Sync via Cross-Modal Flow</li>
+              <li>2506.03914 — Self-Critique Loops for Retrieval Agents</li>
+              <li>2506.03861 — Benchmarking Long-Horizon Video Coherence</li>
+              <li>2506.03790 — Weight-Space Merging of Specialist Diffusions</li>
+              <li>2506.03742 — Guidance Distillation at Inference Time</li>
+              <li>2506.03698 — Structured State Duplication in SSM Hybrids</li>
+            </ul>
+          </div>
+          <figcaption>ONE MORNING ON ARXIV — TITLES, UNREAD</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="cs-section">
+      <div class="cs-head cs-reveal">
+        <span class="cs-kicker">02 — The Radar</span>
+        <h4 class="cs-h">A system that reads the field for you</h4>
+      </div>
+      <div class="cs-grid">
+        <div class="cs-col-main cs-reveal">
+          <p class="cs-body">It sweeps six sources every six hours: arXiv, GitHub, Hugging Face, Papers with Code, Semantic Scholar, and the community. Everything it finds is deduplicated, judged for relevance against the shape of the field, and scored for impact. Most of it is rejected — that&rsquo;s the point. What survives becomes a knowledge base you can talk to.</p>
+        </div>
+      </div>
+      <figure class="cs-radar cs-reveal">
+        <div class="cs-radar-stage">
+          <img class="cs-radar-poster" src="/projects/research-radar/radar-poster.webp" width="1600" height="900" alt="Radar constellation — research papers swept, scored and clustered as points of light" loading="lazy" decoding="async" />
+          <canvas class="cs-radar-canvas" aria-hidden="true"></canvas>
+        </div>
+        <figcaption>THE SWEEP — SIX SOURCES, EVERY SIX HOURS</figcaption>
+      </figure>
+    </section>
+
+    <section class="cs-section">
+      <div class="cs-head cs-reveal">
+        <span class="cs-kicker">03 — The Pipeline</span>
+        <h4 class="cs-h">Six sources, one judgment</h4>
+      </div>
+      <div class="cs-grid">
+        <div class="cs-col-main cs-reveal">
+          <p class="cs-body">Relevance isn&rsquo;t a keyword list — each candidate is judged against the clusters the field actually forms. And impact is one formula that adapts to what it&rsquo;s scoring: citations mean nothing for a day-old repo, stars mean nothing for a paper.</p>
+        </div>
+      </div>
+      <div class="cs-flow cs-reveal" data-flow aria-hidden="true">
+        <div class="cs-flow-sources">
+          <span class="cs-flow-chip">ARXIV</span>
+          <span class="cs-flow-chip">GITHUB</span>
+          <span class="cs-flow-chip">HUGGING FACE</span>
+          <span class="cs-flow-chip">PAPERS W/ CODE</span>
+          <span class="cs-flow-chip">SEMANTIC SCHOLAR</span>
+          <span class="cs-flow-chip">COMMUNITY</span>
+        </div>
+        <span class="cs-flow-link is-converge"></span>
+        <div class="cs-flow-spine">
+          <span class="cs-flow-chip is-stage">DEDUPE</span>
+          <span class="cs-flow-link"></span>
+          <span class="cs-flow-chip is-stage">GATE</span>
+          <span class="cs-flow-link"></span>
+          <span class="cs-flow-chip is-stage">SCORE</span>
+          <span class="cs-flow-link"></span>
+          <span class="cs-flow-store">
+            <span class="cs-flow-chip">SQLITE</span>
+            <span class="cs-flow-chip">CHROMA</span>
+          </span>
+          <span class="cs-flow-link"></span>
+          <span class="cs-flow-chip is-stage is-serve">SERVE<span class="cs-flow-caret" aria-hidden="true"></span></span>
+        </div>
+      </div>
+      <div class="cs-grid">
+        <div class="cs-col-main cs-reveal">
+          <ol class="cs-pipeline">
+            <li><span>01</span>Ingest — six sources, every six hours, rate-limit aware</li>
+            <li><span>02</span>Dedupe — one entry per work, however many places it surfaced</li>
+            <li><span>03</span>Gate — cluster-aware relevance, judged against the shape of the field</li>
+            <li><span>04</span>Score — one impact formula, adaptive to papers, models, datasets and repos</li>
+            <li><span>05</span>Store — dual-write to SQLite and ChromaDB, committed as one or not at all</li>
+            <li><span>06</span>Serve — REST, MCP, and a chat that narrates its own search</li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <section class="cs-section">
+      <div class="cs-head cs-reveal">
+        <span class="cs-kicker">04 — The Agent</span>
+      </div>
+      <p class="cs-statement cs-reveal">When it doesn&rsquo;t know, <em>it goes and looks.</em></p>
+      <div class="cs-grid cs-agent-grid">
+        <figure class="cs-term cs-reveal" data-term>
+          <div class="cs-term-bar">
+            <span>research-radar — agent trace</span>
+            <span class="cs-term-dot" aria-hidden="true"></span>
+          </div>
+          <ol class="cs-term-body">
+            <li class="cs-term-line is-user" data-text="you · what's new in flow-matching distillation this week?" data-pause="0.7"></li>
+            <li class="cs-term-line" data-text="● searching local knowledge base…" data-pause="0.55"></li>
+            <li class="cs-term-line" data-text="  0 strong matches — local kb insufficient" data-pause="0.45"></li>
+            <li class="cs-term-line" data-text="→ active exploration · searching arxiv…" data-pause="0.7"></li>
+            <li class="cs-term-line" data-text="→ found 3 new papers — ingesting" data-pause="0.45"></li>
+            <li class="cs-term-line" data-text="→ gating against field clusters · 2 pass · scoring" data-pause="0.45"></li>
+            <li class="cs-term-line" data-text="→ stored — sqlite + chroma, one transaction" data-pause="0.7"></li>
+            <li class="cs-term-line is-answer" data-text="radar · Two papers from this week are directly relevant. The stronger result reports a 4× sampling speedup at matched fidelity, distilling a 50-step teacher into…"></li>
+          </ol>
+          <figcaption>ACTIVE EXPLORATION — THIS ANSWER DIDN&rsquo;T EXIST LOCALLY FORTY SECONDS AGO</figcaption>
+        </figure>
+        <div class="cs-agent-copy cs-reveal">
+          <p class="cs-body">Ask about something the knowledge base hasn&rsquo;t seen and most systems shrug politely. The radar treats the gap as a task: search the sources, ingest what&rsquo;s new, gate it, score it — then answer, citing work that wasn&rsquo;t local a minute ago.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="cs-section cs-section--light">
+      <div class="cs-head cs-reveal">
+        <span class="cs-kicker">05 — The Product</span>
+        <h4 class="cs-h">The front of the system</h4>
+      </div>
+      <div class="cs-grid">
+        <div class="cs-col-main cs-reveal">
+          <p class="cs-body">Not a cron job — a product people open every morning. A feed you can sort by impact, recency, stars or citations. Detail pages that tell you at a glance whether you&rsquo;re allowed to use the thing. A chat that narrates its own search while it streams.</p>
+        </div>
+      </div>
+      <div class="cs-grid cs-ui-grid">
+        <figure class="cs-ui cs-ui-feed cs-reveal" data-ui-feed>
+          <div class="cs-browser cs-wipe">
+            <div class="cs-browser-bar">
+              <span class="cs-browser-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+              <span class="cs-browser-label">RESEARCH RADAR — FEED</span>
+            </div>
+            <div class="cs-browser-body">
+              <div class="cs-feed-head">
+                <span>SORTED BY <em data-sort-label>IMPACT</em></span>
+                <span>142 NEW — LAST SWEEP 04:00</span>
+              </div>
+              <ul class="cs-feed" data-feed>
+                <li class="cs-feed-row" data-impact="94" data-fresh="2" data-stars="1"><span class="cs-feed-kind">PAPER</span><span class="cs-feed-title">Anchored Rectified Flows for One-Step Generation</span><span class="cs-feed-lic t1">OPEN</span><span class="cs-feed-n">94</span></li>
+                <li class="cs-feed-row" data-impact="91" data-fresh="6" data-stars="2"><span class="cs-feed-kind">MODEL</span><span class="cs-feed-title">Trajectory Conditioning for Persistent Identity</span><span class="cs-feed-lic t3">OPENRAIL</span><span class="cs-feed-n">91</span></li>
+                <li class="cs-feed-row" data-impact="87" data-fresh="1" data-stars="5"><span class="cs-feed-kind">REPO</span><span class="cs-feed-title">kv-policy — Learned KV-Cache Eviction</span><span class="cs-feed-lic t1">OPEN</span><span class="cs-feed-n">87</span></li>
+                <li class="cs-feed-row" data-impact="82" data-fresh="4" data-stars="3"><span class="cs-feed-kind">PAPER</span><span class="cs-feed-title">Sparse Mixture Routing in Video Diffusion Backbones</span><span class="cs-feed-lic t4">NC</span><span class="cs-feed-n">82</span></li>
+                <li class="cs-feed-row" data-impact="78" data-fresh="3" data-stars="6"><span class="cs-feed-kind">DATASET</span><span class="cs-feed-title">LongCoherence-1M — Video Consistency Benchmark</span><span class="cs-feed-lic t2">COPYLEFT</span><span class="cs-feed-n">78</span></li>
+                <li class="cs-feed-row" data-impact="73" data-fresh="5" data-stars="4"><span class="cs-feed-kind">PAPER</span><span class="cs-feed-title">Guidance Distillation at Inference Time</span><span class="cs-feed-lic t5">CLOSED</span><span class="cs-feed-n">73</span></li>
+              </ul>
+            </div>
+          </div>
+          <figcaption>THE FEED — SORTED BY IMPACT, ARGUED WITH DAILY</figcaption>
+        </figure>
+        <figure class="cs-ui cs-ui-chat cs-reveal" data-ui-chat>
+          <div class="cs-browser cs-wipe">
+            <div class="cs-browser-bar">
+              <span class="cs-browser-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+              <span class="cs-browser-label">RESEARCH RADAR — ASK</span>
+            </div>
+            <div class="cs-browser-body cs-chat">
+              <p class="cs-chat-q">Anything new on controllable video generation?</p>
+              <div class="cs-chat-status">
+                <span class="cs-chat-pill">SEARCHING KB</span>
+                <span class="cs-chat-pill">ARXIV</span>
+                <span class="cs-chat-pill">FOUND 3</span>
+                <span class="cs-chat-pill">SCORING</span>
+              </div>
+              <p class="cs-chat-a" data-text="Three results this sweep. The strongest is a trajectory-conditioning method that holds identity across long sequences — weights are OpenRAIL, code is Apache. Two earlier entries in the knowledge base report similar control at lower fidelity. [1][2][3]"></p>
+            </div>
+          </div>
+          <figcaption>SSE STREAMING — THE BACKEND NARRATES ITS SEARCH</figcaption>
+        </figure>
+        <figure class="cs-ui cs-ui-lic cs-reveal">
+          <div class="cs-browser cs-wipe">
+            <div class="cs-browser-bar">
+              <span class="cs-browser-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+              <span class="cs-browser-label">RESEARCH RADAR — DETAIL</span>
+            </div>
+            <div class="cs-browser-body cs-lic">
+              <p class="cs-lic-title">Trajectory Conditioning for Persistent Identity</p>
+              <div class="cs-lic-meta">
+                <span>KIND — PAPER + WEIGHTS</span>
+                <span>SOURCE — ARXIV · HF</span>
+                <span>IMPACT — 91</span>
+                <span>INGESTED — THIS SWEEP</span>
+              </div>
+              <div class="cs-lic-tiers">
+                <span class="cs-lic-tier">T1 OPEN</span>
+                <span class="cs-lic-tier">T2 COPYLEFT</span>
+                <span class="cs-lic-tier is-active">T3 OPENRAIL</span>
+                <span class="cs-lic-tier">T4 NON-COMMERCIAL</span>
+                <span class="cs-lic-tier">T5 PROPRIETARY</span>
+              </div>
+              <p class="cs-lic-note">Weights usable with use-based restrictions; code Apache-2.0. Five tiers, detected automatically — OpenRAIL handled as its own case, not filed under &ldquo;other&rdquo;.</p>
+            </div>
+          </div>
+          <figcaption>LICENSE DETECTION — FIVE TIERS, READ AT A GLANCE</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="cs-section">
+      <div class="cs-head cs-reveal">
+        <span class="cs-kicker">06 — The Proof</span>
+        <h4 class="cs-h">Boring, on purpose</h4>
+      </div>
+      <div class="cs-grid">
+        <div class="cs-col-main cs-reveal">
+          <p class="cs-body">The interesting parts are allowed to be interesting because the foundations aren&rsquo;t. Inference runs on vLLM over SLURM; every API shape exists once, in Pydantic, and generates its TypeScript twin; ingestion is async and rate-limit aware across all six sources.</p>
+        </div>
+      </div>
+      <div class="cs-stats cs-stats--proof">
+        <div class="cs-stat cs-reveal"><span class="cs-stat-n"><span data-countup="322">322</span></span><span class="cs-stat-l">Tests in the suite</span></div>
+        <div class="cs-stat cs-reveal"><span class="cs-stat-n" data-roll>06</span><span class="cs-stat-l">Hours between sweeps</span></div>
+        <div class="cs-stat cs-reveal"><span class="cs-stat-n" data-roll>05</span><span class="cs-stat-l">License tiers detected</span></div>
+      </div>
+      <ul class="cs-details cs-details--proof">
+        <li class="cs-detail cs-reveal">
+          <div class="cs-detail-head">
+            <span class="cs-detail-i">A</span>
+            <h5>Dual-write, one fate</h5>
+          </div>
+          <p class="cs-detail-body">Every record lands in SQLite and ChromaDB together — if the relational write fails, the vector write rolls back, so the search index can never believe something the database doesn&rsquo;t. Guarantees this boring are what let an agent fetch and ingest mid-answer with nobody holding its hand.</p>
+        </li>
+        <li class="cs-detail cs-reveal">
+          <div class="cs-detail-head">
+            <span class="cs-detail-i">B</span>
+            <h5>It grades itself</h5>
+          </div>
+          <p class="cs-detail-body">Each answer is followed by a structured critique pass — what was missing, what was weak, what should have been cited. Collected rather than discarded: a finetuning dataset for the next version of the system, written by the current one.</p>
+        </li>
+      </ul>
+    </section>
+
+    <footer class="cs-end">
+      <span>MADE AT STABILITY AI</span>
+      <span>RESEARCH RADAR — AGENTIC DISCOVERY</span>
       <button class="cs-close-end" type="button" data-cursor>CLOSE PROJECT&nbsp;↑</button>
     </footer>
 

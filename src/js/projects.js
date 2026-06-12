@@ -63,6 +63,8 @@ export function initProjects(lenis, reducedMotion) {
 
     pv.classList.add('is-open')
     pv.setAttribute('aria-hidden', 'false')
+    // the hero shader is fully occluded while a case is open — let it pause
+    document.dispatchEvent(new CustomEvent('overlay:open'))
     document.dispatchEvent(new CustomEvent('cursor:clear'))
     panel.scrollTop = 0
     if (lenis) lenis.stop()
@@ -129,6 +131,7 @@ export function initProjects(lenis, reducedMotion) {
       document.dispatchEvent(new CustomEvent('cursor:clear'))
       pv.classList.remove('is-open')
       pv.setAttribute('aria-hidden', 'true')
+      document.dispatchEvent(new CustomEvent('overlay:close'))
       if (caseCtl) { caseCtl.destroy(); caseCtl = null }
       pv.classList.remove('pv--case')
       caseMount.replaceChildren()

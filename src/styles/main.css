@@ -814,6 +814,10 @@ section { padding: clamp(5rem, 12vh, 9rem) var(--pad); }
   font-size: 0.9375rem;
 }
 .cs-pipeline li:last-child { border-bottom: 1px solid var(--rule); }
+/* .cs-pipeline li outspecifies .has-rule — restate the static-border
+   knockout or the scroll-drawn rule paints over an already-solid line */
+.cs-pipeline li.has-rule { border-top-color: transparent; }
+.cs-pipeline li.has-rule-bottom { border-bottom-color: transparent; }
 .cs-pipeline li span { font-size: var(--fs-label); letter-spacing: var(--track); color: var(--soft); }
 .cs-compare { display: grid; gap: 2rem; }
 

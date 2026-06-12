@@ -341,22 +341,22 @@
       </div>
       <div class="cs-grid">
         <div class="cs-col-main cs-reveal">
-          <p class="cs-body">The hardest problem wasn&rsquo;t motion — it was likeness. The dataset of Paul as a teenager is small and wildly varied, and even with a dedicated face LoRA, Capitol Records didn&rsquo;t see Paul in the outputs. Three months into a photoreal pipeline, we made the call: start over.</p>
+          <p class="cs-body">The hardest problem wasn&rsquo;t motion, it was likeness. Client was only able to provide a small dataset of a younger Paul that varied in appearance and age. Despite training a dedicated face LoRA, Capitol Records didn&rsquo;t see Paul in the outputs. Three months into the pipeline, we made the call: pivot and start over.</p>
           <ol class="cs-pipeline">
             <li><span>01</span>Base image — the vintage photograph</li>
-            <li><span>02</span>Recolor + outpaint — Qwen, Nano Banana</li>
-            <li><span>03</span>Video generation — LTX, Wan</li>
+            <li><span>02</span>Recolor + Outpaint</li>
+            <li><span>03</span>Video Generation with LTX</li>
             <li><span>04</span>Face LoRA pass</li>
-            <li><span>05</span>Outputs + edit</li>
+            <li><span>05</span>Outputs + final edits</li>
           </ol>
         </div>
         <div class="cs-col-side cs-compare cs-reveal">
           <figure>
-            <img src="/projects/mccartney/challenge-before.webp" alt="Original photo-booth portrait of a teenage Paul McCartney, worn black and white print" loading="lazy" decoding="async" />
+            <img src="/projects/mccartney/challenge-before.webp" width="1200" height="1012" alt="Original photo-booth portrait of a teenage Paul McCartney, worn black and white print" loading="lazy" decoding="async" />
             <figcaption>THE SOURCE — PHOTO BOOTH PRINT</figcaption>
           </figure>
           <figure>
-            <video class="cs-video" width="640" height="352" muted loop playsinline preload="none" poster="/projects/mccartney/challenge-after-poster.webp" data-src="/projects/mccartney/challenge-after.mp4"></video>
+            <video class="cs-video" width="1280" height="704" muted loop playsinline preload="none" poster="/projects/mccartney/challenge-after-poster.webp" data-src="/projects/mccartney/challenge-after.mp4"></video>
             <figcaption>RESTORED — RECOLORED, IN MOTION</figcaption>
           </figure>
         </div>

@@ -1,0 +1,11 @@
+{
+  // Cloudflare Workers config for serving the built static site.
+  // `vite build` outputs to ./dist, which Workers serves directly as static assets.
+  "name": "portfolio",
+  "compatibility_date": "2025-01-01",
+  "assets": {
+    "directory": "./dist",
+    // Serve index.html for unknown paths so the single-page site never 404s.
+    "not_found_handling": "single-page-application"
+  }
+}

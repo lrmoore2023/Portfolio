@@ -38,7 +38,7 @@ export function initWipGate(reducedMotion) {
         <span class="line"><span class="line-inner">PROGRESS<span class="wip-caret">_</span></span></span>
       </h1>
       <p class="wip-sub">
-        <span class="line"><span class="line-inner">Liam Moore&nbsp;—&nbsp;Creative Technologist</span></span>
+        <span class="line"><span class="line-inner">Liam Moore&nbsp;—&nbsp;Applied AI Engineer</span></span>
       </p>
       <div class="wip-progress">
         <span class="wip-percent">(&nbsp;<span class="wip-odo"><span class="wip-odo-strip"><span>00</span><span>${PERCENT_START}</span></span></span>%&nbsp;)</span>

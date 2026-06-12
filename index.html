@@ -228,6 +228,7 @@
   <div class="pv" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Project details">
     <div class="pv-backdrop"></div>
     <div class="pv-progress" aria-hidden="true"></div>
+    <div class="pv-wayfinder" aria-hidden="true"></div>
     <div class="pv-panel" data-lenis-prevent>
       <button class="pv-close" type="button" data-cursor aria-label="Close project">CLOSE&nbsp;✕</button>
       <div class="pv-media"></div>
@@ -271,12 +272,14 @@
 
     <section class="cs-section">
       <div class="cs-stats">
-        <div class="cs-stat cs-reveal"><span class="cs-stat-n">01</span><span class="cs-stat-l">Month</span></div>
-        <div class="cs-stat cs-reveal"><span class="cs-stat-n">1000<sup>S</sup></span><span class="cs-stat-l">Of generations</span></div>
-        <div class="cs-stat cs-reveal"><span class="cs-stat-n">01</span><span class="cs-stat-l">Start-over</span></div>
+        <div class="cs-stat cs-reveal"><span class="cs-stat-n" data-roll>01</span><span class="cs-stat-l">Month</span></div>
+        <div class="cs-stat cs-reveal"><span class="cs-stat-n"><span data-countup="1000">1000</span><sup>S</sup></span><span class="cs-stat-l">Of generations</span></div>
+        <div class="cs-stat cs-reveal"><span class="cs-stat-n" data-roll>01</span><span class="cs-stat-l">Start-over</span></div>
       </div>
       <figure class="cs-board cs-reveal">
-        <video class="cs-video" width="1600" height="676" muted loop playsinline preload="none" poster="/projects/mccartney/stats-board-poster.webp" data-src="/projects/mccartney/stats-board.mp4"></video>
+        <div class="cs-frame is-plate cs-wipe"><div class="cs-drift">
+          <video class="cs-video" width="1600" height="676" muted loop playsinline preload="none" poster="/projects/mccartney/stats-board-poster.webp" data-src="/projects/mccartney/stats-board.mp4"></video>
+        </div></div>
         <figcaption>THE BOARD — EVERY TAKE OF EVERY POSTCARD</figcaption>
       </figure>
     </section>
@@ -356,7 +359,9 @@
           </ol>
         </div>
         <figure class="cs-tript-after cs-reveal">
-          <video class="cs-video" width="1280" height="704" muted loop playsinline preload="none" poster="/projects/mccartney/challenge-after-poster.webp" data-src="/projects/mccartney/challenge-after.mp4"></video>
+          <div class="cs-frame cs-wipe"><div class="cs-drift">
+            <video class="cs-video" width="1280" height="704" muted loop playsinline preload="none" poster="/projects/mccartney/challenge-after-poster.webp" data-src="/projects/mccartney/challenge-after.mp4"></video>
+          </div></div>
           <figcaption>RESTORED — RECOLORED, IN MOTION</figcaption>
         </figure>
       </div>
@@ -387,11 +392,15 @@
           <p class="cs-detail-body">During the recoloring and outpainting process, scenery was researched against the historical record. Things such as brick color, gutters, and homes were taken into consideration to ensure accuracy.</p>
           <div class="cs-detail-media cs-diptych">
             <figure>
-              <video class="cs-video" width="1280" height="720" muted loop playsinline preload="none" poster="/projects/mccartney/craft-recolor-poster.webp" data-src="/projects/mccartney/craft-recolor.mp4"></video>
+              <div class="cs-frame cs-wipe"><div class="cs-drift">
+                <video class="cs-video" width="1280" height="720" muted loop playsinline preload="none" poster="/projects/mccartney/craft-recolor-poster.webp" data-src="/projects/mccartney/craft-recolor.mp4"></video>
+              </div></div>
               <figcaption>RECOLORED — LIVERPOOL BRICK</figcaption>
             </figure>
             <figure>
-              <img src="/projects/mccartney/craft-research.webp" width="1600" height="1334" alt="Vintage photograph of the boys composited into a present-day photo of 20 Forthlin Road" loading="lazy" decoding="async" />
+              <div class="cs-frame cs-wipe"><div class="cs-drift">
+                <img src="/projects/mccartney/craft-research.webp" width="1600" height="1334" alt="Vintage photograph of the boys composited into a present-day photo of 20 Forthlin Road" loading="lazy" decoding="async" />
+              </div></div>
               <figcaption>RESEARCH — 20 FORTHLIN ROAD</figcaption>
             </figure>
           </div>
@@ -404,7 +413,9 @@
           <p class="cs-detail-body">Every 16:9 video was outpainted to generate 9:16 assets. These vertical videos were then provided to Capitol Records to use for different platforms.</p>
           <div class="cs-detail-media">
             <figure class="is-tall">
-              <video class="cs-video" width="832" height="1088" muted loop playsinline preload="none" poster="/projects/mccartney/craft-outpaint-poster.webp" data-src="/projects/mccartney/craft-outpaint.mp4"></video>
+              <div class="cs-frame cs-wipe"><div class="cs-drift">
+                <video class="cs-video" width="832" height="1088" muted loop playsinline preload="none" poster="/projects/mccartney/craft-outpaint-poster.webp" data-src="/projects/mccartney/craft-outpaint.mp4"></video>
+              </div></div>
               <figcaption>OUTPAINT — 9:16 FROM THE 16:9 MASTER</figcaption>
             </figure>
           </div>
@@ -422,11 +433,15 @@
           <p class="cs-body">The 9:16 face quality degraded, so the original 16:9 videos were stitched back on top in After Effects to restore detail. From there, an edit pass dialed in the Super&nbsp;8 texture and cut the scenes together. Final deliverables for each postcard consisted of a 16:9 and 9:16 edit.</p>
         </div>
         <figure class="cs-fin-a cs-reveal">
-          <video class="cs-video" width="800" height="452" muted loop playsinline preload="none" poster="/projects/mccartney/finishing-ae-poster.webp" data-src="/projects/mccartney/finishing-ae.mp4"></video>
+          <div class="cs-frame is-plate cs-wipe"><div class="cs-drift">
+            <video class="cs-video" width="800" height="452" muted loop playsinline preload="none" poster="/projects/mccartney/finishing-ae-poster.webp" data-src="/projects/mccartney/finishing-ae.mp4"></video>
+          </div></div>
           <figcaption>COMPOSITING — AFTER EFFECTS</figcaption>
         </figure>
         <figure class="cs-fin-b cs-reveal">
-          <img src="/projects/mccartney/finishing-edit.webp" width="1600" height="848" alt="After Effects timeline of the Super 8 film-effect edit with stitched clips" loading="lazy" decoding="async" />
+          <div class="cs-frame is-plate cs-wipe"><div class="cs-drift">
+            <img src="/projects/mccartney/finishing-edit.webp" width="1600" height="848" alt="After Effects timeline of the Super 8 film-effect edit with stitched clips" loading="lazy" decoding="async" />
+          </div></div>
           <figcaption>THE EDIT — SUPER&nbsp;8 TEXTURE, STITCHED CLIPS</figcaption>
         </figure>
       </div>

@@ -13,8 +13,12 @@ export function initCaseStudy(panel, reducedMotion) {
   const videos = panel.querySelectorAll('video.cs-video')
   const observers = []
 
+  // .cs-wipe frames share the reveal observer — is-inview drives their
+  // clip-path wipe the same way it drives the fade-ups
+  const wipes = panel.querySelectorAll('.cs-wipe')
   if (reducedMotion) {
     reveals.forEach((el) => el.classList.add('is-inview'))
+    wipes.forEach((el) => el.classList.add('is-inview'))
   } else {
     const io = new IntersectionObserver((entries) => {
       entries.forEach((e) => {
@@ -25,6 +29,7 @@ export function initCaseStudy(panel, reducedMotion) {
       })
     }, { root: panel, rootMargin: '0px 0px -10% 0px' })
     reveals.forEach((el) => io.observe(el))
+    wipes.forEach((el) => io.observe(el))
     observers.push(io)
   }
 
@@ -52,6 +57,9 @@ export function initCaseStudy(panel, reducedMotion) {
 
   const audio = initPlateAudio(panel)
   const rules = initCaseRules(panel, reducedMotion)
+  rules.push(...initDrift(panel, reducedMotion))
+  rules.push(...initStats(panel, reducedMotion, observers))
+  initWayfinder(panel, observers)
 
   // reading progress line, scaled to the panel's own scroll
   const progress = document.querySelector('.pv-progress')
@@ -77,10 +85,94 @@ export function initCaseStudy(panel, reducedMotion) {
         panel.removeEventListener('scroll', onScroll)
         progress.style.transform = 'scaleX(0)'
       }
+      const wf = document.querySelector('.pv-wayfinder')
+      if (wf) { wf.classList.remove('is-visible'); wf.textContent = '' }
       audio.muteAll()
       videos.forEach((v) => v.pause())
     },
   }
+}
+
+// Scroll parallax for the process-media plates: the drift layer is scaled up
+// 6% in CSS and rides a few percent vertically as its frame crosses the panel
+function initDrift(panel, reducedMotion) {
+  if (reducedMotion) return []
+  const tweens = []
+  panel.querySelectorAll('.cs-drift').forEach((drift) => {
+    tweens.push(gsap.fromTo(drift, { yPercent: -3.5 }, {
+      yPercent: 3.5,
+      ease: 'none',
+      scrollTrigger: {
+        scroller: panel,
+        trigger: drift.closest('.cs-frame'),
+        start: 'top bottom',
+        end: 'bottom top',
+        scrub: true,
+      },
+    }))
+  })
+  return tweens
+}
+
+// Stats odometer: the 01s roll up from 00 through a mask, the generations
+// counter spins from 0 — once, when the row enters view
+function initStats(panel, reducedMotion, observers) {
+  const stats = panel.querySelector('.cs-stats')
+  if (!stats || reducedMotion) return []
+
+  stats.querySelectorAll('[data-roll]').forEach((el) => {
+    const final = el.textContent.trim()
+    el.classList.add('cs-odo')
+    el.innerHTML = `<span class="cs-odo-strip"><span>${'0'.repeat(final.length)}</span><span>${final}</span></span>`
+  })
+  const counter = stats.querySelector('[data-countup]')
+  if (counter) {
+    // reserve the final width so the trailing S never drifts mid-count
+    counter.style.minWidth = `${counter.offsetWidth}px`
+    counter.textContent = '0'
+  }
+
+  const tweens = []
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((e) => {
+      if (!e.isIntersecting) return
+      io.disconnect()
+      stats.querySelectorAll('.cs-odo-strip').forEach((strip, i) => {
+        tweens.push(gsap.to(strip, { yPercent: -50, duration: 1, ease: 'power4.inOut', delay: 0.2 + i * 0.15 }))
+      })
+      if (counter) {
+        const state = { v: 0 }
+        tweens.push(gsap.to(state, {
+          v: parseInt(counter.dataset.countup, 10),
+          duration: 1.3,
+          ease: 'power2.out',
+          delay: 0.25,
+          onUpdate: () => { counter.textContent = Math.floor(state.v) },
+        }))
+      }
+    })
+  }, { root: panel, threshold: 0.4 })
+  io.observe(stats)
+  observers.push(io)
+  return tweens
+}
+
+// Section wayfinder — the active kicker rotates at the overlay's left edge
+function initWayfinder(panel, observers) {
+  const wf = document.querySelector('.pv-wayfinder')
+  if (!wf) return
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((e) => {
+      if (!e.isIntersecting) return
+      const kicker = e.target.querySelector('.cs-kicker')
+      if (kicker) {
+        wf.textContent = kicker.textContent
+        wf.classList.add('is-visible')
+      }
+    })
+  }, { root: panel, rootMargin: '-40% 0px -50% 0px' })
+  panel.querySelectorAll('.cs-section').forEach((s) => io.observe(s))
+  observers.push(io)
 }
 
 // Divider rules draw left-to-right scrubbed to the panel's own scroll — the

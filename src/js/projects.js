@@ -107,6 +107,14 @@ export function initProjects(lenis, reducedMotion) {
       { opacity: 1, y: 0, duration: Math.max(dur, 0.01), delay: dur * 0.35, ease: 'power3.out' },
     )
     gsap.fromTo(closeBtn, { opacity: 0 }, { opacity: 1, duration: 0.5, delay: dur * 0.5 })
+    // case titles slide up through their mask, like the page headings
+    if (caseCtl && !reducedMotion) {
+      const line = document.createElement('span')
+      line.className = 'pv-title-line'
+      line.textContent = fields.title.textContent
+      fields.title.replaceChildren(line)
+      gsap.fromTo(line, { yPercent: 115 }, { yPercent: 0, duration: 1.2, ease: 'power4.out', delay: dur * 0.4 })
+    }
   }
 
   function close() {

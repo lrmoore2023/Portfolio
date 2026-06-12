@@ -662,6 +662,25 @@ section { padding: clamp(5rem, 12vh, 9rem) var(--pad); }
   display: none;
 }
 .pv--case .pv-progress { display: block; }
+/* section wayfinder for the case document — mirrors the page's .wayfinder */
+.pv-wayfinder {
+  position: absolute;
+  left: 1.1rem;
+  top: 50%;
+  z-index: 6;
+  transform: translateY(-50%);
+  writing-mode: vertical-rl;
+  font-size: 0.625rem;
+  letter-spacing: var(--track);
+  text-transform: uppercase;
+  color: var(--soft);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.5s var(--ease);
+  display: none;
+}
+.pv--case .pv-wayfinder { display: block; }
+.pv-wayfinder.is-visible { opacity: 1; }
 
 /* ============================================================
    CASE STUDY (.pv--case) — long-form overlay document
@@ -692,7 +711,8 @@ section { padding: clamp(5rem, 12vh, 9rem) var(--pad); }
   grid-template-columns: repeat(12, 1fr);
   column-gap: clamp(1rem, 2.5vw, 2.5rem);
 }
-.pv--case .pv-title { grid-column: 1 / -1; font-size: clamp(2.75rem, 7.5vw, 7.5rem); }
+.pv--case .pv-title { grid-column: 1 / -1; font-size: clamp(2.75rem, 7.5vw, 7.5rem); overflow: hidden; }
+.pv-title-line { display: block; }
 .pv--case .pv-row { grid-column: 1 / -1; }
 .pv--case .pv-desc { grid-column: 1 / span 7; }
 .pv--case .pv-details {
@@ -783,7 +803,37 @@ section { padding: clamp(5rem, 12vh, 9rem) var(--pad); }
   text-transform: uppercase;
   color: var(--soft);
 }
+/* odometer roll — numerals slide up through a mask, counters keep the
+   trailing S stable while the value spins */
+.cs-odo { display: inline-block; overflow: hidden; height: 0.9em; }
+.cs-odo-strip { display: block; }
+.cs-odo-strip span { display: block; height: 0.9em; line-height: 0.9; }
+.cs-stat-n [data-countup] { display: inline-block; }
 .cs-board { margin-top: clamp(2rem, 5vh, 3.5rem); }
+
+/* process-media plates: a clipping frame (wipe reveal + hover zoom) around
+   a slightly oversized drift layer (scroll parallax). The transparent
+   cutouts (print, vinyl) deliberately stay still. */
+.cs-frame {
+  position: relative;
+  overflow: hidden;
+}
+.cs-frame.is-plate { border: 1px solid var(--rule); }
+.cs-drift { scale: 1.06; }
+.cs-frame video,
+.cs-frame img {
+  display: block;
+  width: 100%;
+  transform: scale(1.001);
+  transition: transform 1.1s var(--ease);
+}
+.cs-frame:hover video,
+.cs-frame:hover img { transform: scale(1.04); }
+.pv--case .cs-wipe {
+  clip-path: inset(0 0 100% 0);
+  transition: clip-path 1.2s var(--ease);
+}
+.pv--case .cs-wipe.is-inview { clip-path: inset(0 0 0% 0); }
 
 /* postcard plates — wide 16:9 and tall 9:16 films interlocked on the
    12-col grid so neither orientation strands big empty regions */
@@ -896,10 +946,12 @@ section { padding: clamp(5rem, 12vh, 9rem) var(--pad); }
   gap: 0.875rem;
   align-items: start;
 }
+.cs-diptych .cs-frame { height: clamp(15rem, 24vw, 24rem); }
+.cs-diptych .cs-drift { height: 100%; }
 .cs-diptych img,
 .cs-diptych video {
   width: 100%;
-  height: clamp(15rem, 24vw, 24rem);
+  height: 100%;
   object-fit: cover;
 }
 .cs-detail-media .is-tall { max-width: min(100%, 19rem); }
@@ -1001,6 +1053,7 @@ section { padding: clamp(5rem, 12vh, 9rem) var(--pad); }
 }
 @media (max-width: 900px) {
   .wayfinder { display: none; }
+  .pv--case .pv-wayfinder { display: none; }
 }
 
 /* ============================================================
@@ -1110,6 +1163,8 @@ section { padding: clamp(5rem, 12vh, 9rem) var(--pad); }
   html.js .line-inner { transform: none; }
   html.js [data-reveal] { opacity: 1; }
   .pv--case .cs-reveal { opacity: 1; transform: none; transition: none; }
+  .pv--case .cs-wipe { clip-path: none; transition: none; }
+  .cs-drift { scale: none; }
   .hero-scroll, .grain { animation: none; }
   body { transition: none; }
 }

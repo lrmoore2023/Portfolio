@@ -1,7 +1,7 @@
 {
   // Cloudflare Workers config for serving the built static site.
   // `vite build` outputs to ./dist, which Workers serves directly as static assets.
-  "name": "portfolio",
+  "name": "liammoore-portfolio",
   "compatibility_date": "2025-01-01",
   "assets": {
     "directory": "./dist",

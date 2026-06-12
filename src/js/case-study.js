@@ -54,6 +54,11 @@ export function initCaseStudy(panel, reducedMotion) {
   const rules = initCaseRules(panel, reducedMotion)
 
   return {
+    // called once the open Flip settles — the hero collapses to ~0 while the
+    // cover is mid-flight, so rule positions measured at init are stale
+    refresh() {
+      ScrollTrigger.refresh()
+    },
     destroy() {
       observers.forEach((o) => o.disconnect())
       rules.forEach((t) => { t.scrollTrigger?.kill(); t.kill() })
@@ -114,7 +119,6 @@ function initCaseRules(panel, reducedMotion) {
     }
   })
 
-  ScrollTrigger.refresh()
   return tweens
 }
 
@@ -147,7 +151,7 @@ function initPlateAudio(panel) {
     p.video.muted = false
     p.video.volume = 0
     p.video.play().catch(() => { p.video.muted = true; p.video.play().catch(() => {}) })
-    gsap.to(p.video, { volume: 1, duration: 0.35, ease: 'power1.in' })
+    gsap.to(p.video, { volume: 0.55, duration: 0.35, ease: 'power1.in' })
   }
 
   plates.forEach((p) => {

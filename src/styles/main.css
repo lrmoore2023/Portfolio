@@ -819,7 +819,15 @@ section { padding: clamp(5rem, 12vh, 9rem) var(--pad); }
 .cs-pipeline li.has-rule { border-top-color: transparent; }
 .cs-pipeline li.has-rule-bottom { border-bottom-color: transparent; }
 .cs-pipeline li span { font-size: var(--fs-label); letter-spacing: var(--track); color: var(--soft); }
-.cs-compare { display: grid; gap: 2rem; }
+
+/* challenge triptych — evidence reads left to right on a falling diagonal:
+   the rejected print sits high, the copy + pipeline bridge the middle,
+   the restored film resolves low right */
+.cs-tript-before { grid-column: 1 / span 4; align-self: start; }
+.cs-tript-before img { transform: rotate(-1.5deg); }
+.cs-tript-copy { grid-column: 5 / span 4; align-self: center; }
+.cs-tript-copy .cs-pipeline { margin-top: 2rem; }
+.cs-tript-after { grid-column: 9 / span 4; align-self: end; }
 
 /* pivot — manifesto + full-bleed plate */
 .cs-statement {
@@ -1028,6 +1036,8 @@ section { padding: clamp(5rem, 12vh, 9rem) var(--pad); }
   .pv--case .pv-details { grid-column: 1 / -1; }
   .pv--case .pv-details { margin-top: 2.5rem; }
   .cs-col-main, .cs-col-side { grid-column: 1 / -1; }
+  .cs-tript-before, .cs-tript-copy, .cs-tript-after { grid-column: 1 / -1; }
+  .cs-tript-before { max-width: min(100%, 26rem); }
   .cs-plate, .cs-plate:nth-child(n) { grid-column: 1 / -1; grid-row: auto; align-self: auto; }
   .cs-plate:nth-child(even) .cs-plate-media { max-width: min(100%, 24rem); margin-inline: auto; }
   .cs-stats { grid-template-columns: 1fr; row-gap: 2.25rem; }

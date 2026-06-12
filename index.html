@@ -339,8 +339,12 @@
         <span class="cs-kicker">03 — The Challenge</span>
         <h4 class="cs-h">The label couldn&rsquo;t see Paul</h4>
       </div>
-      <div class="cs-grid">
-        <div class="cs-col-main cs-reveal">
+      <div class="cs-grid cs-triptych">
+        <figure class="cs-tript-before cs-reveal">
+          <img src="/projects/mccartney/challenge-before.webp" width="1200" height="1012" alt="Original photo-booth portrait of a teenage Paul McCartney, worn black and white print" loading="lazy" decoding="async" />
+          <figcaption>THE SOURCE — PHOTO BOOTH PRINT</figcaption>
+        </figure>
+        <div class="cs-tript-copy cs-reveal">
           <p class="cs-body">The hardest problem wasn&rsquo;t motion, it was likeness. Client was only able to provide a small dataset of a younger Paul that varied in appearance and age. Despite training a dedicated face LoRA, Capitol Records didn&rsquo;t see Paul in the outputs. Three months into the pipeline, we made the call: pivot and start over.</p>
           <ol class="cs-pipeline">
             <li><span>01</span>Base image — the vintage photograph</li>
@@ -350,16 +354,10 @@
             <li><span>05</span>Outputs + final edits</li>
           </ol>
         </div>
-        <div class="cs-col-side cs-compare cs-reveal">
-          <figure>
-            <img src="/projects/mccartney/challenge-before.webp" width="1200" height="1012" alt="Original photo-booth portrait of a teenage Paul McCartney, worn black and white print" loading="lazy" decoding="async" />
-            <figcaption>THE SOURCE — PHOTO BOOTH PRINT</figcaption>
-          </figure>
-          <figure>
-            <video class="cs-video" width="1280" height="704" muted loop playsinline preload="none" poster="/projects/mccartney/challenge-after-poster.webp" data-src="/projects/mccartney/challenge-after.mp4"></video>
-            <figcaption>RESTORED — RECOLORED, IN MOTION</figcaption>
-          </figure>
-        </div>
+        <figure class="cs-tript-after cs-reveal">
+          <video class="cs-video" width="1280" height="704" muted loop playsinline preload="none" poster="/projects/mccartney/challenge-after-poster.webp" data-src="/projects/mccartney/challenge-after.mp4"></video>
+          <figcaption>RESTORED — RECOLORED, IN MOTION</figcaption>
+        </figure>
       </div>
     </section>
 

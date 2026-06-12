@@ -89,7 +89,14 @@ export function initProjects(lenis, reducedMotion) {
       duration: dur,
       ease: 'power4.inOut',
       absolute: true,
-      onComplete: () => { media.style.height = ''; animating = false; closeBtn.focus() },
+      onComplete: () => {
+        media.style.height = ''
+        // trigger positions were measured against the pre-Flip layout
+        // (empty hero) — recompute now that the cover is in flow
+        if (caseCtl) caseCtl.refresh()
+        animating = false
+        closeBtn.focus()
+      },
     })
     gsap.fromTo(backdrop, { opacity: 0 }, { opacity: 1, duration: dur * 0.7, ease: 'power2.out' })
     gsap.fromTo(content,
@@ -107,6 +114,7 @@ export function initProjects(lenis, reducedMotion) {
 
     const finish = () => {
       placeholder.remove()
+      cover.style.zIndex = ''
       pv.classList.remove('is-open')
       pv.setAttribute('aria-hidden', 'true')
       if (caseCtl) { caseCtl.destroy(); caseCtl = null }
@@ -141,6 +149,9 @@ export function initProjects(lenis, reducedMotion) {
 
     const state = Flip.getState(cover)
     home.replaceChild(cover, placeholder)
+    // the cover now lives in the page, UNDER the overlay (z 80) — without a
+    // lift it vanishes behind the backdrop until the fade catches up
+    cover.style.zIndex = 100
 
     const dur = reducedMotion ? 0 : 0.8
     Flip.from(state, {

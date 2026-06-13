@@ -35,6 +35,33 @@ export function initReveals(reducedMotion) {
     )
   })
 
+  // the about portrait gets the same clip-path wipe as the project covers,
+  // with its caption fading in just after — keeps it consistent with the
+  // work grid rather than the plainer [data-reveal] fade
+  const portrait = document.querySelector('.about-portrait')
+  if (portrait) {
+    gsap.fromTo(portrait.querySelector('.portrait-media'),
+      { clipPath: 'inset(0 0 100% 0)' },
+      {
+        clipPath: 'inset(0 0 0% 0)',
+        duration: 1.25,
+        ease: 'power4.inOut',
+        scrollTrigger: { trigger: portrait, start: 'top 82%' },
+      },
+    )
+    gsap.fromTo(portrait.querySelector('figcaption'),
+      { opacity: 0, y: 20 },
+      {
+        opacity: 1,
+        y: 0,
+        duration: 0.9,
+        delay: 0.35,
+        ease: 'power3.out',
+        scrollTrigger: { trigger: portrait, start: 'top 82%' },
+      },
+    )
+  }
+
   document.querySelectorAll('.project').forEach((project) => {
     const cover = project.querySelector('.cover')
     gsap.fromTo(cover,
@@ -67,7 +94,7 @@ export function initRules(reducedMotion) {
   if (reducedMotion) return
 
   const hosts = document.querySelectorAll(
-    '.section-head, .project-meta, .capability, .contact-link, .site-footer',
+    '.section-head, .project-meta, .capability, .stack-row, .contact-link, .site-footer',
   )
 
   const make = (host, cls) => {
@@ -119,7 +146,7 @@ export function initRules(reducedMotion) {
     }
 
     draw(host, top, 'top')
-    if (host.matches('.capability:last-child, .contact-link:last-child')) {
+    if (host.matches('.capability:last-child, .stack-row:last-child, .contact-link:last-child')) {
       host.classList.add('has-rule-bottom')
       draw(host, make(host, 'rule rule--bottom'), 'bottom')
     }

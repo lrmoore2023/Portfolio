@@ -37,10 +37,47 @@ export function initCursor() {
     cursor.classList.remove('has-label', 'is-hover')
   })
 
+  // drop the difference blend over media — otherwise the dot inverts the
+  // image/video beneath it into a negative. a point test on the pointer
+  // isn't enough: the dot has size and lags the pointer (quickTo), so its
+  // edges can overlap media before/around the pointer crossing, flashing a
+  // half-inverted dot at boundaries. instead, sample the dot's *rendered*
+  // footprint each frame and toggle on any overlap. the loop only ticks
+  // while the dot is travelling and idles once it has caught up.
+  const media = 'img, video'
+  let targetX = -100, targetY = -100, ticking = false
+
+  function trackMedia() {
+    const r = cursor.getBoundingClientRect()
+    const cx = r.left + r.width / 2
+    const cy = r.top + r.height / 2
+    const reach = r.width / 2 + 2 // footprint radius + a small buffer for the leading edge
+
+    let overMedia = !!document.elementFromPoint(cx, cy)?.closest(media)
+    for (let i = 0; i < 8 && !overMedia; i++) {
+      const a = (i / 8) * Math.PI * 2
+      const el = document.elementFromPoint(cx + Math.cos(a) * reach, cy + Math.sin(a) * reach)
+      overMedia = !!el?.closest(media)
+    }
+    cursor.classList.toggle('over-media', overMedia)
+
+    if (Math.hypot(targetX - cx, targetY - cy) > 0.5) {
+      requestAnimationFrame(trackMedia)
+    } else {
+      ticking = false // settled — stop sampling until the next move
+    }
+  }
+
+  window.addEventListener('pointermove', (e) => {
+    targetX = e.clientX
+    targetY = e.clientY
+    if (!ticking) { ticking = true; requestAnimationFrame(trackMedia) }
+  })
+
   // the element under a stationary pointer can be swapped out from beneath
   // it (e.g. a project card opening into the overlay) without any boundary
   // event firing — let those flows reset the cursor explicitly
   document.addEventListener('cursor:clear', () => {
-    cursor.classList.remove('has-label', 'is-hover')
+    cursor.classList.remove('has-label', 'is-hover', 'over-media')
   })
 }
